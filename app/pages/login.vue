@@ -24,8 +24,8 @@
 
         <!-- 右侧登录区域 -->
         <div class="flex flex-col items-center justify-center p-8">
-            <img src="/logo.png" class="h-10 mb-12" />
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Log In</h2>
+            <NuxtLink to="/"><img src="/logo.png" class="h-10 mb-12" /></NuxtLink>
+            <h2 class="text-2xl font-medium text-gray-900 mb-6">Log In</h2>
 
             <UForm :state="formState" @submit="handleLogin" class="w-full max-w-md">
                 <UFormGroup name="email" required class="mb-4">
@@ -93,7 +93,8 @@
 import { ref, reactive } from 'vue';
 const { login } = useAuth();
 const toast = useToast();
-
+import { message } from 'ant-design-vue'
+const { $showLoading, $hideLoading } = useNuxtApp()
 definePageMeta({
     layout: 'blank',
     name: 'Login',
@@ -184,6 +185,7 @@ const handleLogin = async () => {
     }
 
     try {
+        $showLoading()
         await login(formState.email.trim(), formState.password.trim());
 
         // 如果勾选了"Remember me"，保存到本地存储
@@ -194,15 +196,12 @@ const handleLogin = async () => {
             localStorage.removeItem('rememberedEmail');
             localStorage.removeItem('rememberedpassword');
         }
+        $hideLoading()
+        message.success('Login successful!')
 
-        toast.add({
-            title: 'Success',
-            description: 'Login successful!',
-            color: 'primary',
-            timeout: 1000,
-        });
         navigateTo('/');
     } catch (error) {
+        $hideLoading()
         let errormsg = JSON.parse(error.message)
         if (errormsg.errorKey == 'email') {
             formErrors.email = errormsg.enDesc;
@@ -215,12 +214,9 @@ const handleLogin = async () => {
         formErrors.email = '';
         formErrors.password = '';
 
-        toast.add({
-            title: 'Error',
-            description: errormsg.enDesc || 'Login failed, please try again',
-            color: 'red',
-            timeout: 3000,
-        });
+        message.error(errormsg.enDesc || 'Login failed, please try again')
+
+
     }
 };
 
@@ -254,5 +250,9 @@ onMounted(() => {
 .w-32 {
     width: 8rem;
     /* 统一社交按钮宽度 */
+}
+
+:deep(input::placeholder) {
+    color: #B3B3B3;
 }
 </style>

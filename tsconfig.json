@@ -3,11 +3,6 @@
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
     "allowJs": true,
-    "strict": false,
-    "types": [
-      "@types/node",
-      "nuxt",
-      "./types/nuxt"
-    ]
+    "strict": false
   }
 }

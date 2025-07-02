@@ -1,8 +1,8 @@
 <template>
-    <div class="bg-[#F1F1F1] w-full">
-        <div class="max-w-4xl mx-auto py-10 ">
-            <h1 class="text-3xl md:text-4xl text-title font-bold text-center mb-12">
-                Frequently Asked Questions
+    <div class="w-full">
+        <div class="max-row py-10 ">
+            <h1 class="text-3xl md:text-5xl text-blackcolor font-normal text-center mb-12">
+                FAQ
             </h1>
 
             <UAccordion variant="solid" size="xl" :items="faqItems" class="text-title">
@@ -10,9 +10,9 @@
                     <UButton color="gray" variant="ghost"
                         class="border-b border-gray-200 dark:border-gray-700 text-title w-full flex justify-between items-center"
                         :ui="{ rounded: 'rounded-none', padding: { sm: 'p-5' } }">
-                        <span class="truncate text-title text-left">{{ index + 1 }}. {{ item.label }}</span>
-                        <UIcon name="i-heroicons-chevron-right-20-solid"
-                            class="w-5 h-5 transition-transform duration-200" :class="[open ? 'rotate-90' : '']" />
+                        <span class="truncate text-blackcolor text-left">{{ index + 1 }}. {{ item.label }}</span>
+                        <UIcon name="i-heroicons-chevron-down-20-solid"
+                            class="w-5 h-5 transition-transform duration-200" :class="[open ? 'rotate-180' : '']" />
                     </UButton>
                 </template>
 

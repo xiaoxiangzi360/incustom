@@ -10,7 +10,7 @@ export default {
   author: 'Pinegrow',
   url: 'https://pg-nuxtui.netlify.app',
   github: 'https://github.com/pinegrow/pg-nuxtui',
-  ogImageUrl: '/og-image.jpg', // absolute url (or) from public folder
+  ogImageUrl: 'og-image.jpg', // absolute url (or) from public folder
   generator: 'https://vuedesigner.com',
   defaultLocale: 'en', // default
   identity: {
@@ -48,6 +48,11 @@ export default {
         icon: 'i-ic-outline-my-location',
       },
       {
+        title: 'Order History',
+        to: '/order-history',
+        icon: 'i-ic-baseline-history',
+      },
+      {
         title: 'Returns',
         to: '/returns',
         icon: 'i-material-symbols-assignment-return-outline-rounded',
@@ -61,6 +66,11 @@ export default {
         title: 'Contact Us',
         to: '/contact-us',
         icon: 'i-material-symbols-add-call',
+      },
+      {
+        title: 'Help & FAQs',
+        to: '/help-faqs',
+        icon: 'i-material-symbols-contact-support-outline',
       },
     ],
   },

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import siteMeta from '@/site'
-const { title, logo } = siteMeta
+// import siteMeta from '@/site'
+// const { title, logo } = siteMeta
 </script>
 <template>
   <ULink data-pg-name="Logo" class="flex sm:flex-row" to="/">

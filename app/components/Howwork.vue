@@ -1,6 +1,6 @@
 <template>
     <div class="bg-[#F7F7F7] p-6 md:p-10 ">
-        <div class="mx-auto px-4 md:px-8 py-10 md:py-16 max-w-[1440px]">
+        <div class="max-row">
             <h1 class="text-3xl md:text-4xl font-bold text-center text-title mb-10 md:mb-16">
                 How It Works with INcustom
             </h1>

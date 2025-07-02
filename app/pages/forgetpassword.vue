@@ -2,18 +2,18 @@
     <div class="grid grid-cols-1 md:grid-cols-2 h-screen">
         <!-- 右侧登录区域 -->
         <div class="flex flex-col items-center justify-center p-8">
-            <img src="/logo.png" class="h-10 mb-12" />
+            <NuxtLink to="/"><img src="/logo.png" class="h-10 mb-12" /></NuxtLink>
 
-            <h2 class="text-2xl font-bold text-gray-900 text-title">Reset your password</h2>
+            <h2 class="text-2xl font-medium text-gray-900 text-title">Reset your password</h2>
             <div class="max-w-md text-title w-full text-base" v-if="step == 1">
                 <div class="mt-4 max-w-md text-title w-full text-base">Please enter your email and code</div>
                 <UInput v-model="email" size="xl" placeholder="Your email address" class="mt-1 w-full max-w-md" />
                 <div class="relative mt-2 w-full max-w-md text-red-500 text-xs">{{ errorMessages }}</div>
 
-                <!-- <ClientOnly> -->
-                <Turnstile v-model="turnstileToken" siteKey="0x4AAAAAABCCDmTDhTUkRB29" @success="onVerify"
-                    class="mt-3 mt-1 w-full max-w-md" />
-                <!-- </ClientOnly> -->
+                <ClientOnly>
+                    <Turnstile ref="turnstileRef" v-model="turnstileToken" siteKey="0x4AAAAAABCCDmTDhTUkRB29"
+                        @success="onVerify" class="mt-3 mt-1 w-full max-w-md" />
+                </ClientOnly>
 
                 <UButton @click="submitForm" class="text-white w-full max-w-md mt-6 p-3 block text-center">
                     Get email verification
@@ -91,6 +91,9 @@
 import { ref } from 'vue'
 import Turnstile from 'vue-turnstile' // 手动导入组件
 const { sendrepassword, updatepassword } = useAuth();
+import { message } from 'ant-design-vue'
+const { $showLoading, $hideLoading } = useNuxtApp()
+
 const toast = useToast();
 const step = ref(1);
 definePageMeta({
@@ -137,7 +140,7 @@ const errorMessages = ref('')
 const emailcode = ref('')
 const countdown = ref(0);
 let timer = null;
-
+const turnstileRef = ref(null);
 const onVerify = (token) => {
     // Debugging logs to see if this function is triggered
     console.log("onVerify triggered", token)
@@ -209,17 +212,16 @@ const submitForm = async () => {
         return
     }
     try {
+        $showLoading()
 
         let res = await sendrepassword(
             email.value,
             turnstileToken.value
         );
-        toast.add({
-            title: 'Success',
-            description: 'We have sent the email verification code to your email ！',
-            color: 'primary',
-            timeout: 3000,
-        });
+        $hideLoading()
+
+        message.success('We have sent the email verification code to your email ！')
+
         step.value = 2
         countdown.value = 60;
         timer = setInterval(() => {
@@ -230,15 +232,17 @@ const submitForm = async () => {
             }
         }, 1000);
     } catch (error) {
-        console.error(error);
-        toast.add({
-            title: 'Error',
-            description: error.message || 'Registration failed, please try again',
-            color: 'red',
-            timeout: 3000,
+        $hideLoading()
+
+        nextTick(() => {
+            turnstileRef.value?.reset();
         });
+        let errormsg = JSON.parse(error.message)
+
+        message.error(errormsg.enDesc || 'failed, please try again')
+        console.log(turnstileToken.value);
+
     }
-    console.log(turnstileToken.value);
 }
 const resetpassword = async () => {
 
@@ -249,22 +253,23 @@ const resetpassword = async () => {
             formState.emailcode,
             formState.password,
         );
-        toast.add({
-            title: 'Success',
-            description: 'password update successful!',
-            color: 'primary',
-            timeout: 3000,
-        });
+
+        message.success('password update successful!')
+
         setTimeout(() => navigateTo('/login'), 3000);
 
     } catch (error) {
-        console.error(error);
-        toast.add({
-            title: 'Error',
-            description: error.message || 'Registration failed, please try again',
-            color: 'red',
-            timeout: 3000,
+        nextTick(() => {
+            turnstileRef.value?.reset();
         });
+        let errormsg = JSON.parse(error.message)
+
+        message.error(errormsg.enDesc || 'failed, please try again')
     }
 }
 </script>
+<style>
+:deep(input::placeholder) {
+    color: #B3B3B3;
+}
+</style>

@@ -1,5 +1,5 @@
 <template>
-    <section class="py-12 bg-white max-w-[1440px] mx-auto">
+    <section class="py-12 bg-white max-row">
         <div class="max-w-6xl mx-auto px-4 md:px-8">
             <!-- 标题 -->
             <h1 class="text-3xl md:text-4xl text-title font-bold text-center mb-12">Why incustom</h1>

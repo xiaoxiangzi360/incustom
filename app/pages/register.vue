@@ -24,9 +24,9 @@
 
         <!-- 右侧注册表单 -->
         <div class="flex flex-col items-center justify-center p-8">
-            <img src="/logo.png" class="h-10 mb-12" />
+            <NuxtLink to="/"><img src="/logo.png" class="h-10 mb-12" /></NuxtLink>
 
-            <h2 class="text-2xl font-bold text-title mb-6">Create an account using email</h2>
+            <h2 class="text-2xl font-medium text-title mb-6">Create an account using email</h2>
 
             <UForm :state="formState" @submit="handleRegister" class="w-full max-w-md">
                 <UFormGroup name="fullName" required class="mb-4">
@@ -81,11 +81,11 @@
                 <UCheckbox v-model="formState.isChecked" name="agreement" />
                 <span class="text-sm text-title">
                     I have read the
-                    <a href="/user-agreement" class="text-primary underline hover:text-primary-600">
+                    <a href="/" class="text-primary underline hover:text-primary-600">
                         User Registration Agreement
                     </a>
                     and
-                    <a href="/privacy-policy" class="text-primary underline hover:text-primary-600">
+                    <a href="/" class="text-primary underline hover:text-primary-600">
                         Privacy Policy
                     </a>
                 </span>
@@ -108,6 +108,8 @@
 import { ref, reactive, watch } from 'vue';
 const { register } = useAuth();
 const toast = useToast();
+import { message } from 'ant-design-vue'
+const { $showLoading, $hideLoading } = useNuxtApp()
 
 definePageMeta({
     layout: 'blank',
@@ -394,12 +396,17 @@ const validatefullName = () => {
 const validateemail = () => {
 
     const trimmedValue = formState.email;
+
     if (!trimmedValue) {
-        formErrors.email = 'email is required';
+        formErrors.email = 'Email is required';
+        // errors.push({ path: 'email', message: formErrors.email });
+    } else if (!/^(?!.*\.\.)[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/
+        .test(trimmedValue)) {
+        formErrors.email = 'Invalid email format';
+        // errors.push({ path: 'email', message: formErrors.email });
     } else {
         formErrors.email = '';
     }
-
 };
 // 实时检测密码格式
 const validatePassword = () => {
@@ -433,6 +440,7 @@ watch(() => formState.isChecked, (newvalue, oldvalue) => {
         formErrors.agreement = '';
     }
 });
+
 // 表单提交时的验证（不重复验证密码）
 const validate = (state) => {
     const errors = [];
@@ -485,6 +493,7 @@ const validate = (state) => {
 // 提交注册
 const handleRegister = async () => {
 
+
     if (!formState.isChecked) {
 
         formErrors.agreement = 'You must agree to the terms';
@@ -512,23 +521,31 @@ const handleRegister = async () => {
         return;
     }
     try {
+        $showLoading()
+
+        let selectedcode = '+1';
+        if (typeof formState.numberAreaCode === 'object' && formState.numberAreaCode !== null) {
+            selectedcode = formState.numberAreaCode.value
+        } else {
+            selectedcode = formState.numberAreaCode
+        }
 
         let res = await register(
-            formState.fullName,
+            formState.fullName.replace(/\s/g, ""),
             formState.email,
             formState.password.trim(),
-            formState.numberAreaCode,
+            selectedcode,
             Number(formState.phoneNumber.replace(/\s/g, ""))
         );
-        toast.add({
-            title: 'Success',
-            description: 'Registration successful! Redirecting to login...',
-            color: 'primary',
-            timeout: 3000,
-        });
-        console.log(res)
-        setTimeout(() => navigateTo('/login'), 3000);
+        $hideLoading()
+
+        message.success('Registration successful!')
+
+        navigateTo('/');
+
     } catch (error) {
+        $hideLoading()
+
         console.error(error);
         let errormsg = JSON.parse(error.message)
         if (errormsg.errorKey == 'email') {
@@ -541,18 +558,17 @@ const handleRegister = async () => {
         }
         formErrors.email = '';
         formErrors.password = '';
-
-        toast.add({
-            title: 'Error',
-            description: errormsg.enDesc || 'Login failed, please try again',
-            color: 'red',
-            timeout: 3000,
-        });
+        message.error(errormsg.enDesc || 'Login failed, please try again')
     }
 };
 </script>
 <style scoped>
-::v-deep .bg-gray-100 {
+:deep(.bg-gray-100) {
     background-color: #F1F1F1 !important;
+}
+
+/* 修改所有 UInput 的 placeholder 颜色 */
+:deep(input::placeholder) {
+    color: #B3B3B3;
 }
 </style>

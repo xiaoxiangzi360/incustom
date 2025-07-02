@@ -1,14 +1,13 @@
 <template>
-    <div class="p-6 md:p-10">
-        <div class="max-w-[1440px] mx-auto px-4 md:px-8 py-8 md:py-16">
-            <h1
-                class="text-2xl md:text-5xl font-bold mb-8 md:mb-14 bg-clip-text text-transparent bg-gradient-to-b from-[#25B9EC] to-[#0962A9] text-center">
+    <div class="p-6 md:p-10 mt-12">
+        <div class="max-row">
+            <h1 class="text-2xl md:text-5xl mb-8 md:mb-14 bg-clip-text font-normal text-blackcolor text-center">
                 Why Love inCustom
             </h1>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
                 <div v-for="(review, index) in reviews" :key="index" class="bg-white rounded-lg p-6 md:p-8">
                     <p
-                        class="text-title mb-4 md:mb-6 text-base md:text-lg leading-relaxed min-h-40 border-b border-[rgba(46,46,12,0.1)]">
+                        class="text-title mb-4 md:mb-6 text-base md:text-lg leading-relaxed min-h-40 border-b border-[rgba(46,46,12,0.1)] py-6">
                         {{ review.text }}
                     </p>
                     <div class="flex items-center justify-between">
@@ -17,13 +16,12 @@
                             <div>
                                 <h5 class="font-semibold text-title">{{ review.name }}</h5>
                                 <div class="flex text-primary">
-                                    <UIcon v-for="star in 5" :key="star" name="i-material-symbols-kid-star"
+                                    <UIcon v-for="star in 5" :key="star" name="i-material-symbols-star"
                                         class="text-xl md:text-2xl" />
                                 </div>
                             </div>
                         </div>
-                        <div class="flex items-center gap-1 md:gap-2">
-                            <img src="/images/shopify.png" alt="Shopify" class="h-4 md:h-5">
+                        <div class="flex items-center gap-1 md:gap-2 self-end">
                             <span class="text-gray-500 text-xs md:text-sm">{{ review.date }}</span>
                         </div>
                     </div>
@@ -32,7 +30,7 @@
 
             <div class="text-center">
                 <button
-                    class="bg-gradient-to-b from-[#25B9EC] to-[#0962A9] hover:opacity-90 text-white font-semibold py-3 px-8 md:py-4 md:px-10 rounded-md text-base md:text-lg transition-all duration-200">
+                    class="text-blackcolor bg-bright hover:opacity-90 text-white font-semibold py-3 px-8 md:py-4 md:px-12 rounded-md text-base md:text-lg transition-all duration-200">
                     Get Started It’s Free
                 </button>
             </div>

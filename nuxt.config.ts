@@ -15,13 +15,13 @@ const {
   trailingSlash,
   titleSeparator,
 } = siteMeta
-console.log(process.env.NUXT_PUBLIC_API_BASE)
+
 export default defineNuxtConfig({
   extends: [
     './app-nuxtui-layer', // NavBar and Footer components
   ],
 
-  // ssr: false,
+  ssr: true,
   // devtools: { enabled: false }, // enabled by default, disable when using standalone Vue devtools
 
   // Preparation for Nuxt 4 migration
@@ -40,32 +40,29 @@ export default defineNuxtConfig({
   experimental: {
     componentIslands: true,
   },
-
+  generate: {
+    fallback: true, // ✅ 自動生成404.html兜底
+  },
   nitro: {
     preset: 'netlify-static',
     devProxy: {
       '/api/': {
-        target: 'http://192.168.50.95:50500',
+        target: 'https://testapi.incustom.com',
+        // target: 'http://192.168.50.95:50500',
         changeOrigin: true,
         prependPath: false,
       }
-    }
+    },
   },
 
   app: {
-    baseURL: '/',
+    baseURL: '/', // defaulted by nuxt
+    // Look into HeadAndMeta.vue for the rest
     head: {
-      meta: [{ charset: 'utf-8' }],
+      meta: [{ charset: 'utf-8' }], // defaulted by nuxt
     },
   },
-  http: {
-    baseURL: '/api', // 请求时，API 的基础路径是 `/api`
-  },
-  runtimeConfig: {
-    public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://192.168.50.95:50500',
-    }
-  },
+
   modules: [
     '@pinegrow/nuxt-module',
     '@unocss/nuxt',
@@ -78,7 +75,7 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     // '@nuxtjs/fontaine', // blocked by https://github.com/nuxt-modules/fontaine/issues/342
     '@nuxtjs/critters',
-    '@nuxt/icon', // Pre-included by @nuxt/ui
+    // '@nuxt/icon', // Pre-included by @nuxt/ui
     'nuxt-icon', // To be replaced with @nuxt-icon (above), once NuxtSEO drops using this/becomes stable..
     '@nuxt/eslint',
     '@nuxt/ui',
@@ -90,11 +87,18 @@ export default defineNuxtConfig({
       })
     },
   ],
-
+  routeRules: {
+    '/productdetail/**': { ssr: false }, // 或 false，根据您的需求
+  },
   colorMode: {
     preference: 'light',
   },
-
+  runtimeConfig: {
+    public: {
+      apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://testapi.incustom.com',
+      // apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://192.168.50.95:50500',
+    }
+  },
   ui: {
     // safelistColors: [
     //   'primary',
@@ -132,6 +136,7 @@ export default defineNuxtConfig({
   // Global styles
   css: [
     '@/assets/css/tailwind.css',
+    '@/assets/css/custom.css',
     'lite-youtube-embed/src/lite-yt-embed.css',
   ],
 

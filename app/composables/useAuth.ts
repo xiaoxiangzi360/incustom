@@ -1,7 +1,15 @@
 export const useAuth = () => {
     const { $api } = useNuxtApp()
-    const token = useCookie('token')
-    const userinfo = useCookie('userinfo')
+
+    const token = useCookie<string>('token', {
+        maxAge: 60 * 60 * 24 * 7, // 持久化
+        sameSite: 'lax', // 安全一点
+    })
+
+    const userinfo = useCookie<any>('userinfo', {
+        maxAge: 60 * 60 * 24 * 7,
+        sameSite: 'lax',
+    })
 
     // ✅ 登录接口
     const login = async (email: string, password: string) => {
@@ -24,6 +32,26 @@ export const useAuth = () => {
     }
 
     const register = async (fullName: string, email: string, password: string, numberAreaCode: string, number: Number) => {
+        try {
+            const response = await $api('/user/user/createWithLogin', {
+                method: 'POST',
+                body: {
+                    fullName, email, password, numberAreaCode, number
+                },
+            })
+
+            if (response.code == 0) {
+                token.value = response.result.token
+                userinfo.value = JSON.stringify(response.result.user)
+            }
+
+            return response
+        } catch (error) {
+            console.error('登录失败:', error)
+            throw error
+        }
+    }
+    const register1 = async (fullName: string, email: string, password: string, numberAreaCode: string, number: Number) => {
         try {
             const response = await $api('/user/user/create', {
                 method: 'POST',

@@ -1,34 +1,126 @@
-export const useProduct = async (productId: number) => {
-  // const { data: product, error } = await useFetch(
-  //   `/api/store/external-data/${productId}`,
-  // )
-  const { data: product, error } = await useFetch(
-    `/api/store/local-data/${productId}`,
-  )
+export const ProductAuth = () => {
+  const { $api } = useNuxtApp()
 
-  /* The above useFetch is a syntactic sugar of the below useAsyncData & $fetch combo */
-  // const { data, error } = await useAsyncData('product', async () => {
-  //   return await $fetch(`/api/store/local-data/${productId}`)
-  // })
 
-  if (error.value) {
-    throw createError({
-      ...error.value,
-      statusMessage: `Couldn't fetch product id ${productId}.`,
-    })
+  const getProductById = async (params) => {
+    try {
+      const query = new URLSearchParams(params).toString()
+      const response = await $api(`/product/product/getProductById?${query}`, {
+        method: 'GET',
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
   }
 
-  const fetchProduct = () => {
-    // Optimize any image urls in the data contents
-    const { optimizeImage } = useOptimizeImage()
+  const randomRecommendationProductByCatalogId = async (params) => {
+    try {
+      const query = new URLSearchParams(params).toString()
+      const response = await $api(`/product/product/randomRecommendationProductByCatalogId?${query}`, {
+        method: 'GET',
+      })
 
-    return product.value.image
-      ? {
-          ...product.value,
-          imageOptimized: optimizeImage(product.value.image),
-        }
-      : product.value
+      return response
+    } catch (error) {
+
+      throw error
+    }
   }
 
-  return { product, fetchProduct }
+  const getUserProductRollPage = async (params) => {
+    try {
+      const response = await $api('/product/product/userProductRollPage', {
+        method: 'POST',
+        body: params,
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
+  }
+
+  const getproductSearch = async (params) => {
+    try {
+      const response = await $api('/product/product/productSearch', {
+        method: 'POST',
+        body: params,
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
+  }
+  const getmapProductByProductSkuList = async (params) => {
+    try {
+      const response = await $api('/product/product//mapProductByProductSkuList', {
+        method: 'POST',
+        body: params,
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
+  }
+  const customizedProductPriceTrialCalculation = async (params) => {
+    try {
+      const response = await $api('/product/product/customizedProductPriceTrialCalculation', {
+        method: 'POST',
+        body: params,
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
+  }
+  const trialPriceCalculationBySpu = async (params) => {
+    try {
+      const response = await $api('/product/spuMeter/trialPriceCalculationBySpu', {
+        method: 'POST',
+        body: params,
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
+  }
+  const erpTryToCreateSku = async (params) => {
+    try {
+      const response = await $api('/product/product/erpTryToCreateSku', {
+        method: 'POST',
+        body: params,
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
+  }
+  const productSearchRecommendation = async (params) => {
+    try {
+      const response = await $api('/product/product/productSearchRecommendation', {
+        method: 'POST',
+        body: params,
+      })
+
+      return response
+    } catch (error) {
+
+      throw error
+    }
+  }
+  return { getProductById, randomRecommendationProductByCatalogId, getUserProductRollPage, getmapProductByProductSkuList, customizedProductPriceTrialCalculation, erpTryToCreateSku, trialPriceCalculationBySpu, getproductSearch, productSearchRecommendation }
 }

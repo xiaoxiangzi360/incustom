@@ -7,16 +7,13 @@
     "source.fixAll": "never",
     "source.fixAll.eslint": "explicit"
   },
-
   "files.associations": {
     "*.css": "tailwindcss"
   },
   "editor.quickSuggestions": {
     "strings": true
   },
-
   "typescript.tsdk": "node_modules/typescript/lib",
-
   "search.exclude": {
     "**/_pgbackup": true,
     ".nuxt": true,
@@ -24,5 +21,6 @@
     "dist": true,
     "tailwind_theme": true,
     ".unlighthouse": true
-  }
+  },
+  "vue.format.enable": false
 }

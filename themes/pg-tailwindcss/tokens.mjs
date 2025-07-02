@@ -224,16 +224,16 @@ const pg_font_urls = [
 
 const pg_backgrounds = {
   'design-image':
-    "url('https://images.unsplash.com/photo-1481437156560-3205f6a55735?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDkyMnwwfDF8c2VhcmNofDQ0fHxzaG9wcGluZyUyMGZhc2hpb258ZW58MHx8fHwxNzI1MDAwODgzfDA&ixlib=rb-4.0.3&q=80&w=1080')",
+    "url('bg.jpg')",
   'design-image-large':
-    "url('https://images.unsplash.com/photo-1481437156560-3205f6a55735?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDkyMnwwfDF8c2VhcmNofDQ0fHxzaG9wcGluZyUyMGZhc2hpb258ZW58MHx8fHwxNzI1MDAwODgzfDA&ixlib=rb-4.0.3&q=80&w=2000')",
+    "url('bg.jpg')",
 }
 
 const pg_background_urls = {
   'design-image':
-    'https://images.unsplash.com/photo-1481437156560-3205f6a55735?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDkyMnwwfDF8c2VhcmNofDQ0fHxzaG9wcGluZyUyMGZhc2hpb258ZW58MHx8fHwxNzI1MDAwODgzfDA&ixlib=rb-4.0.3&q=80&w=1080',
+    'bg.jpg',
   'design-image-large':
-    'https://images.unsplash.com/photo-1481437156560-3205f6a55735?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wyMDkyMnwwfDF8c2VhcmNofDQ0fHxzaG9wcGluZyUyMGZhc2hpb258ZW58MHx8fHwxNzI1MDAwODgzfDA&ixlib=rb-4.0.3&q=80&w=2000',
+    'bg.jpg',
 }
 
 export { pg_colors, pg_fonts, pg_font_urls, pg_backgrounds, pg_background_urls }

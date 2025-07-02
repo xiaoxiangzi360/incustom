@@ -1,30 +1,31 @@
 <template>
-  <div class="relative max-w-[1440px] mx-auto mt-12">
+  <div class="relative w-full h-[480px]">
     <!-- Swiper 轮播 -->
     <Swiper :slides-per-view="1" :loop="true" :autoplay="{ delay: 3000, disableOnInteraction: false }" :effect="'fade'"
-      :fade-effect="{ crossFade: true }" class="w-full" :style="{ height: swiperHeight + 'px' }"
-      @slideChange="onSlideChange">
+      :fade-effect="{ crossFade: true }" class="w-full h-full" @slideChange="onSlideChange">
       <SwiperSlide v-for="(image, index) in backgroundImages" :key="index">
-        <div class="w-full bg-cover bg-center"
-          :style="{ backgroundImage: `url(${image})`, height: swiperHeight + 'px' }">
+        <div class="w-full bg-cover bg-center" :style="{ backgroundImage: `url(${image})`, height: '100%' }">
           <!-- 遮罩层 -->
           <div class="absolute inset-0 bg-black bg-opacity-30"></div>
 
           <!-- 内容 -->
           <div
-            class="relative z-10 flex flex-col items-start justify-center w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            class="relative z-10 flex flex-col items-start justify-center w-full h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 max-row">
             <!-- 标题 -->
-            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4 leading-normal">
-              NO LIMITS NO RULES<br />JUST YOUR DESIGN
-            </h1>
+            <div class="text-4xl sm:text-5xl lg:text-6xl text-white mb-10 leading-normal"
+              style="text-shadow: 0px 2px 4px rgba(0,0,0,0.5);">
+              No Limits No Rules<br />Just Your Design
+
+            </div>
 
             <!-- 描述 -->
-            <p class="text-lg sm:text-4xl text-white mb-6">
-              WHERE CREATIVITY MEETS CUSTOMIZATION
+            <p class="text-lg sm:text-4xl text-white mb-10" style="text-shadow: 0px 2px 4px rgba(0,0,0,0.5);">
+              Where Creativity Meets Customization
             </p>
 
             <!-- 特性列表 -->
-            <div class="mt-8 flex flex-col items-start md:flex-row md:items-center md:space-x-6 text-lg text-primary">
+            <div class=" flex flex-col items-start md:flex-row md:items-center md:space-x-6 text-lg text-primary"
+              style="text-shadow: 0px 2px 4px rgba(0,0,0,0.5);">
               <span class="flex items-center ">
                 <UIcon name="i-material-symbols-check-circle" class="w-5 h-5 mr-2 text-white" /> <span
                   class="text-white">100% Free
@@ -44,17 +45,7 @@
         </div>
       </SwiperSlide>
     </Swiper>
-    <div class="bg-white rounded-xl my-2 md:my-16 py-6">
-      <div class="grid grid-cols-1 md:grid-cols-4">
-        <div v-for="(feature, index) in features" :key="index" class="flex items-center gap-4 px-6 py-2"
-          :class="{ 'md:border-l md:border-gray-100': index !== 0 }">
-          <NuxtImg class="w-12 h-12 md:w-16 md:h-16" :src="feature.icon" />
-          <span class="text-gray-800 text-sm md:text-base font-medium break-words">
-            {{ feature.title }}
-          </span>
-        </div>
-      </div>
-    </div>
+
   </div>
 </template>
 
@@ -81,7 +72,7 @@ const features = [
   { icon: '/images/service3.png', title: 'Assistance with project design' },
   { icon: '/images/service4.png', title: '24/7 After-sale service' }
 ];
-// 容器宽度（1440px）
+
 const containerWidth = 1440;
 
 // 动态高度

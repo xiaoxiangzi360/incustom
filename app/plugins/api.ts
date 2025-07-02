@@ -1,5 +1,8 @@
+import { message } from 'ant-design-vue'
+
 export default defineNuxtPlugin((nuxtApp) => {
     const config = useRuntimeConfig()
+
     // console.log(config.public)
     const apiFetch = $fetch.create({
         baseURL: config.public.apiBase,
@@ -14,16 +17,19 @@ export default defineNuxtPlugin((nuxtApp) => {
                 if (!options.headers) {
                     options.headers = new Headers()
                 }
-                (options.headers as Headers).set('Authorization', `Bearer ${token}`)
+                (options.headers as Headers).set('token', `${token}`)
             }
         },
         async onResponse({ response }) {
 
-            console.log(111111, response);
             // ✅ 统一处理状态码
             if (response.status === 401) {
                 console.error('未授权，请重新登录')
+                message.warning('Please log in')
+
                 await navigateTo('/login') // ✅ `await` 使返回值符合 `Promise<void>`
+                return Promise.reject(new Error(JSON.stringify({ enDesc: 'Request failed' })))
+
             }
             if (response.status >= 500) {
                 console.error('服务器错误')
@@ -33,7 +39,7 @@ export default defineNuxtPlugin((nuxtApp) => {
                 const returndata = response._data
                 if (returndata.code != 0) {
 
-                    return Promise.reject(new Error(JSON.stringify(returndata.errorBody) || 'Request failed'))
+                    return Promise.reject(new Error(JSON.stringify(returndata.errorBody) || JSON.stringify({ enDesc: 'Request failed' })))
                 }
                 return returndata
             }

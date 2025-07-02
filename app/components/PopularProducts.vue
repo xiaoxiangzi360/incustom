@@ -1,60 +1,56 @@
 <template>
     <div class="mt-14">
-        <div class="max-w-[1440px] mx-auto container px-4 py-8 md:py-12">
+        <div class="max-row">
             <!-- 标题 -->
-            <h1
-                class="text-2xl md:text-5xl font-bold mb-8 md:mb-14 bg-clip-text text-transparent bg-gradient-to-b from-[#25B9EC] to-[#0962A9] text-center">
+            <h1 class="text-2xl md:text-5xl mb-8 md:mb-14 bg-clip-text font-normal text-blackcolor text-center">
                 Most Popular Products
             </h1>
 
             <div class="relative">
+                <!-- 骨架屏 -->
+                <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div v-for="n in 3" :key="n" class="rounded-lg overflow-hidden shadow-md bg-white">
+                        <!-- 图片骨架 -->
+                        <div class="relative w-full aspect-square bg-gray-200 animate-pulse"></div>
+                        <!-- 内容骨架 -->
+                        <div class="p-4">
+                            <div class="h-4 bg-gray-200 rounded w-3/4 mb-2 animate-pulse"></div>
+                            <div class="h-4 bg-gray-200 rounded w-1/2 mb-2 animate-pulse"></div>
+                            <div class="flex items-center justify-between">
+                                <div class="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+                                <div class="h-4 bg-gray-200 rounded w-1/4 animate-pulse"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Swiper 轮播图 -->
-                <Swiper :modules="swiperModules" :slides-per-view="3" :space-between="24" :breakpoints="{
+                <Swiper v-else :modules="swiperModules" :slides-per-view="3" :space-between="24" :breakpoints="{
                     0: { slidesPerView: 1 },
                     640: { slidesPerView: 1 },
                     768: { slidesPerView: 2 },
                     1024: { slidesPerView: 3 }
-                }" :autoplay="{ delay: 3000, disableOnInteraction: false }" :pagination="{ clickable: true }"
-                    class="product-swiper">
+                }" :autoplay="{ delay: 3000, disableOnInteraction: false }" :slides-per-group="3" :loop="true"
+                    :pagination="{ clickable: true }" class="product-swiper">
                     <SwiperSlide v-for="(product, index) in products" :key="index">
-                        <div class="rounded-lg overflow-hidden shadow-md bg-white">
+                        <div @click="checkdetail(product.id)"
+                            class="rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl cursor-pointer">
                             <!-- 产品图片 -->
-                            <div class="relative h-64 overflow-hidden">
-                                <img :src="product.image" :alt="product.title" loading="lazy"
+                            <div class="relative w-full aspect-square overflow-hidden">
+                                <img :src="product.erpProduct.mainPic ?? '/images/empty.jpg'"
+                                    :alt="product.erpProduct.productEnglishName" loading="lazy"
                                     class="w-full h-full object-cover object-top">
                             </div>
 
                             <!-- 产品详情 -->
-                            <div class="p-6">
-                                <h3 class="text-lg font-semibold mb-2">{{ product.title }}</h3>
-                                <div class="flex items-center justify-between mb-4">
-                                    <span class="text-primary font-bold text-xl">
-                                        {{ new Intl.NumberFormat('en-US', {
-                                            style: 'currency', currency: 'USD'
-                                        }).format(product.price) }}
+                            <div class="p-4">
+                                <h3 class="text-base font-normal mb-2 line-clamp-2 min-h-[3em]">{{
+                                    product.erpProduct.productEnglishName }}</h3>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-primary font-medium text-lg">
+                                        $ {{ product.erpProduct.customPrice }}
                                     </span>
-                                    <span class="text-gray-500 text-sm">{{ product.sold }} sold</span>
-                                </div>
-
-                                <!-- 颜色选择 -->
-                                <div class="mb-4">
-                                    <p class="text-sm text-gray-600 mb-2">Color</p>
-                                    <div class="flex gap-2">
-                                        <button v-for="color in product.colors" :key="color"
-                                            class="w-6 h-6 rounded-md transition-all duration-300" :class="{
-                                                'border-blue-500 ring-2 ring-blue-300': selectedColors[index] === color,
-                                                'border-gray-200': selectedColors[index] !== color
-                                            }"
-                                            :style="{ backgroundColor: color, boxShadow: color === '#FFFFFF' ? '0 0 2px rgba(0, 0, 0, 0.3)' : 'none' }"
-                                            :aria-label="`Select color ${color}`"
-                                            @click="selectedColors[index] = color"></button>
-                                    </div>
-                                </div>
-
-                                <!-- 尺寸 -->
-                                <div>
-                                    <p class="text-sm text-gray-600 mb-2">Size</p>
-                                    <p class="text-sm">{{ product.size }}</p>
+                                    <span class="text-[#8E8E8E] text-sm">{{ product.thirtyDaysSales }} sold</span>
                                 </div>
                             </div>
                         </div>
@@ -69,63 +65,45 @@
 import { ref } from 'vue';
 import { Swiper, SwiperSlide } from 'swiper/vue';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { useRouter } from 'vue-router'
+const { getUserProductRollPage } = ProductAuth();
+
+const router = useRouter()
+
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 
 const swiperModules = [Pagination, Autoplay];
 const selectedColors = ref<Record<number, string>>({});
+const products = ref([]);
+const isLoading = ref(true); // 添加加载状态
 
-const products = [
-    {
-        title: 'Triangle General Shade Sail',
-        price: 847.00,
-        sold: 345,
-        size: '16*18*19',
-        image: 'https://ai-public.mastergo.com/ai/img_res/6ae92f31645b5176dded863dfe53d52f.jpg',
-        colors: ['#000000', '#FF6B6B', '#4ECDC4', '#F7D794', '#95A5A6']
-    },
-    {
-        title: 'Premium Shade Sail',
-        price: 847.00,
-        sold: 345,
-        size: '16*18*19',
-        image: 'https://ai-public.mastergo.com/ai/img_res/c2a60ca85ce09bacae4a8a717499196d.jpg',
-        colors: ['#000000', '#FF6B6B', '#4ECDC4', '#F7D794', '#95A5A6']
-    },
-    {
-        title: 'Deluxe Triangle Sail',
-        price: 847.00,
-        sold: 345,
-        size: '16*18*19',
-        image: 'https://ai-public.mastergo.com/ai/img_res/97486c5f96045eef3aaeb1977973ab49.jpg',
-        colors: ['#000000', '#FF6B6B', '#4ECDC4', '#F7D794', '#95A5A6']
-    },
-    {
-        title: 'Triangle General Shade Sail',
-        price: 847.00,
-        sold: 345,
-        size: '16*18*19',
-        image: 'https://ai-public.mastergo.com/ai/img_res/6ae92f31645b5176dded863dfe53d52f.jpg',
-        colors: ['#000000', '#FF6B6B', '#4ECDC4', '#F7D794', '#95A5A6']
-    },
-    {
-        title: 'Premium Shade Sail',
-        price: 847.00,
-        sold: 345,
-        size: '16+18+19',
-        image: 'https://ai-public.mastergo.com/ai/img_res/c2a60ca85ce09bacae4a8a717499196d.jpg',
-        colors: ['#000000', '#FF6B6B', '#4ECDC4', '#F7D794', '#95A5A6']
-    },
-    {
-        title: 'Deluxe Triangle Sail',
-        price: 847.00,
-        sold: 345,
-        size: '16*18*19',
-        image: 'https://ai-public.mastergo.com/ai/img_res/97486c5f96045eef3aaeb1977973ab49.jpg',
-        colors: ['#000000', '#FF6B6B', '#4ECDC4', '#F7D794', '#95A5A6']
+const checkdetail = (id) => {
+    router.push('/productdetail/' + id)
+}
+
+const getpopularlist = async () => {
+    try {
+        isLoading.value = true; // 开始加载
+        let parmes = {
+            sortKey: 'thirtyDaysSales',
+            pageNum: 1,
+            pageSize: 9,
+            sortOrder: 'desc',
+            fields: "id,productState,erpProduct.productEnglishName,erpProduct.customPrice,erpProduct.mainPic,thirtyDaysSales",
+
+        }
+        let res = await getUserProductRollPage(parmes);
+        products.value = res.result.list;
+    } catch (error) {
+        console.error('Error fetching products:', error);
+    } finally {
+        isLoading.value = false; // 加载完成
     }
-];
+};
+
+getpopularlist()
 </script>
 
 <style scoped>
@@ -136,21 +114,42 @@ const products = [
 
 /* Swiper 分页小圆点 */
 .product-swiper :deep(.swiper-pagination-bullet) {
-    width: 24px;
-    height: 24px;
+    width: 18px;
+    height: 18px;
     background: #B9B9B9;
     opacity: 1;
 }
 
 .product-swiper :deep(.swiper-pagination-bullet-active) {
     background: #222222;
-    width: 24px;
-    /* 让选中的点更大 */
-    height: 24px;
+    width: 18px;
+    height: 18px;
 }
 
 .product-swiper :deep(.swiper-pagination) {
     margin-top: 30px;
-    /* 你可以调整这个值 */
+}
+
+.aspect-square {
+    aspect-ratio: 1 / 1;
+}
+
+/* 骨架屏动画 */
+@keyframes pulse {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate-pulse {
+    animation: pulse 1.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 </style>

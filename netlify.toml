@@ -1,6 +1,7 @@
 [build]
-command = "npm run generate"
-publish = "dist"
+  command = "npm run build"
+  publish = ".output/public"
 
-[build.environment]
-NODE_VERSION = "20.14.0"
+[[edge_functions]]
+  function = "nitro-server"
+  path = "/*"

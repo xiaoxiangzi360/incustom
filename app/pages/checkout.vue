@@ -1084,10 +1084,6 @@ tbody tr {
     @apply w-5 h-5 rounded border-gray-300;
 }
 
-.cart-table__action-button {
-    @apply text-primary-500 hover:text-primary-600 transition-colors;
-}
-
 .truncate-1-lines {
     display: -webkit-box;
     -webkit-line-clamp: 1;

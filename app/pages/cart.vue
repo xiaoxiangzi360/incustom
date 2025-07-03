@@ -65,7 +65,7 @@
                                         </td>
                                         <td class="py-4 pl-4 text-center p-6">{{
                                             item.product.skuSpec.customPrice.toFixed(2)
-                                            }}
+                                        }}
                                         </td>
                                         <td class="py-4 pl-4 text-center p-6">
                                             <!-- <InputNumber v-model:value="item.productQuantity" :min="1" :max="9999" /> -->
@@ -368,9 +368,7 @@ tbody tr {
     @apply w-5 h-5 rounded border-gray-300;
 }
 
-.cart-table__action-button {
-    @apply text-primary-500 hover:text-primary-600 transition-colors;
-}
+
 
 .truncate-1-lines {
     display: -webkit-box;

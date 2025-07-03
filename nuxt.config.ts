@@ -188,10 +188,12 @@ export default defineNuxtConfig({
       'avatars.githubusercontent.com',
       'gravatar.com',
     ],
-
     alias: {
-      unsplash: 'https://images.unsplash.com',
+      '@': resolve(__dirname, './'),
     },
+    // alias: {
+    //   unsplash: 'https://images.unsplash.com',
+    // },
     vite: {
       resolve: {
         alias: {

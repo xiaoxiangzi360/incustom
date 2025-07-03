@@ -15,13 +15,13 @@ importers:
         specifier: ^8.2.0
         version: 8.2.0
       '@pinia/nuxt':
-        specifier: ^0.5.4
+        specifier: ^0.5.5
         version: 0.5.5(magicast@0.3.5)(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
       '@vee-validate/nuxt':
-        specifier: ^4.13.2
+        specifier: ^4.15.1
         version: 4.15.1(magicast@0.3.5)(vue@3.5.17(typescript@5.8.3))
       '@vueuse/core':
-        specifier: ^11.0.3
+        specifier: ^11.3.0
         version: 11.3.0(vue@3.5.17(typescript@5.8.3))
       ant-design-vue:
         specifier: ^4.2.6
@@ -33,32 +33,32 @@ importers:
         specifier: ^2.0.11
         version: 2.0.11
       pinia:
-        specifier: ^2.2.2
+        specifier: ^2.3.1
         version: 2.3.1(typescript@5.8.3)(vue@3.5.17(typescript@5.8.3))
       swiper:
-        specifier: ^11.2.6
+        specifier: ^11.2.10
         version: 11.2.10
       vue-turnstile:
         specifier: ^1.0.11
         version: 1.0.11(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@iconify/json':
-        specifier: ^2.2.295
+        specifier: ^2.2.354
         version: 2.2.354
       '@nuxt/content':
         specifier: ^2.13.4
         version: 2.13.4(db0@0.3.2)(ioredis@5.6.1)(magicast@0.3.5)(nuxt@3.17.6(@parcel/watcher@2.5.1)(@types/node@22.16.0)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.30.1(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.44.1)(terser@5.43.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/eslint':
-        specifier: ^0.7.5
+        specifier: ^0.7.6
         version: 0.7.6(@typescript-eslint/utils@8.35.1(eslint@9.30.1(jiti@2.4.2))(typescript@5.8.3))(@vue/compiler-sfc@3.5.17)(eslint@9.30.1(jiti@2.4.2))(magicast@0.3.5)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))
       '@nuxt/icon':
-        specifier: ^1.10.3
+        specifier: ^1.15.0
         version: 1.15.0(magicast@0.3.5)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       '@nuxt/image':
-        specifier: ^1.9.0
+        specifier: ^1.10.0
         version: 1.10.0(db0@0.3.2)(ioredis@5.6.1)(magicast@0.3.5)
       '@nuxt/ui':
-        specifier: ^2.18.4
+        specifier: ^2.22.0
         version: 2.22.0(async-validator@4.2.5)(jwt-decode@4.0.0)(magicast@0.3.5)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))(zod@3.25.71)
       '@nuxtjs/critters':
         specifier: ^0.8.0
@@ -70,7 +70,7 @@ importers:
         specifier: ^1.8.2
         version: 1.8.2(magicast@0.3.5)
       '@nuxtjs/seo':
-        specifier: ^2.0.0-rc.19
+        specifier: ^2.2.0
         version: 2.2.0(@unhead/vue@2.0.11(vue@3.5.17(typescript@5.8.3)))(db0@0.3.2)(h3@1.15.3)(ioredis@5.6.1)(magicast@0.3.5)(rollup@4.44.1)(unhead@2.0.11)(unstorage@1.16.0(db0@0.3.2)(ioredis@5.6.1))(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       '@pinegrow/nuxt-module':
         specifier: ^3.0.69
@@ -82,7 +82,7 @@ importers:
         specifier: ^3.0.35
         version: 3.0.35(tailwindcss@3.4.17)
       '@resvg/resvg-js':
-        specifier: ^2.5.0
+        specifier: ^2.6.2
         version: 2.6.2
       '@tailwindcss/forms':
         specifier: ^0.5.10
@@ -91,40 +91,43 @@ importers:
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@3.4.17)
       '@types/node':
-        specifier: ^22.10.6
+        specifier: ^22.16.0
         version: 22.16.0
       '@unocss/nuxt':
-        specifier: ^65.4.0
+        specifier: ^65.5.0
         version: 65.5.0(magicast@0.3.5)(postcss@8.5.6)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))(webpack@5.99.9(esbuild@0.25.5))
       '@unocss/preset-icons':
-        specifier: ^0.62.3
+        specifier: ^0.62.4
         version: 0.62.4
       '@vueuse/nuxt':
-        specifier: ^12.4.0
+        specifier: ^12.8.2
         version: 12.8.2(magicast@0.3.5)(nuxt@3.17.6(@parcel/watcher@2.5.1)(@types/node@22.16.0)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.30.1(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.44.1)(terser@5.43.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(yaml@2.8.0))(typescript@5.8.3)
       autoprefixer:
-        specifier: ^10.4.20
+        specifier: ^10.4.21
         version: 10.4.21(postcss@8.5.6)
       eslint:
-        specifier: ^9.18.0
+        specifier: ^9.30.1
         version: 9.30.1(jiti@2.4.2)
       eslint-config-prettier:
-        specifier: ^10.0.1
+        specifier: ^10.1.5
         version: 10.1.5(eslint@9.30.1(jiti@2.4.2))
+      nitropack:
+        specifier: ^2.11.13
+        version: 2.11.13
       npm-run-all:
         specifier: ^4.1.5
         version: 4.1.5
       nuxt:
-        specifier: ^3.15.1
+        specifier: ^3.17.6
         version: 3.17.6(@parcel/watcher@2.5.1)(@types/node@22.16.0)(@vue/compiler-sfc@3.5.17)(db0@0.3.2)(eslint@9.30.1(jiti@2.4.2))(ioredis@5.6.1)(magicast@0.3.5)(optionator@0.9.4)(rollup@4.44.1)(terser@5.43.1)(typescript@5.8.3)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(yaml@2.8.0)
       nuxt-icon:
         specifier: ^0.6.10
         version: 0.6.10(magicast@0.3.5)(vite@6.3.5(@types/node@22.16.0)(jiti@2.4.2)(terser@5.43.1)(yaml@2.8.0))(vue@3.5.17(typescript@5.8.3))
       postcss:
-        specifier: ^8.5.0
+        specifier: ^8.5.6
         version: 8.5.6
       prettier:
-        specifier: ^3.4.2
+        specifier: ^3.6.2
         version: 3.6.2
       rehype-external-links:
         specifier: ^3.0.0
@@ -136,7 +139,7 @@ importers:
         specifier: ^3.4.17
         version: 3.4.17
       typescript:
-        specifier: ^5.7.3
+        specifier: ^5.8.3
         version: 5.8.3
 
 packages:

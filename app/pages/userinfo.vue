@@ -16,7 +16,7 @@
             </div>
             <div>
               <span class="text-blackcolor/50 mb-2">Password</span>
-              <div class="mt-1"><a href="#" class="text-primary hover:underline">Set New Password</a></div>
+              <div class="mt-1"><a href="#" class="text-primary-500 hover:underline">Set New Password</a></div>
             </div>
             <div><span class="text-blackcolor/50 mb-2">Full name</span>
               <div class="font-medium mt-1">{{ userinfo.fullName }}</div>

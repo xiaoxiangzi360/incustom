@@ -4,12 +4,12 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 // 按钮分类数
 const categories = ref([
-  { label: "Shade Sail", link: "/categories/Shade Sail/689" },
-  { label: "Roller Shade", link: "/categories/Roller Shade/764" },
-  { label: "Privacy Screen", link: "/categories/Privacy Screen/765" },
-  { label: "Shade Cloth", link: "/categories/Shade Cloth/766" },
-  { label: "Plant Cover", link: "/categories/Plant Cover/767" },
-  { label: "Patio Furniture Covers", link: "/categories/Patio Furniture Covers/12" },
+  { label: "Shade Sail", link: "/Shade Sail-689" },
+  { label: "Roller Shade", link: "/Roller Shade-764" },
+  { label: "Privacy Screen", link: "/Privacy Screen-765" },
+  { label: "Shade Cloth", link: "/Shade Cloth-766" },
+  { label: "Plant Cover", link: "/Plant Cover-767" },
+  { label: "Patio Furniture Covers", link: "/Patio Furniture Covers-12" },
 ]);
 const collectionlist = ref([
   {

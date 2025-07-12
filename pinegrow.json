@@ -754,16 +754,8 @@
     }
   },
   "template_framework_id": "vue",
-  "open-pages": [
-    "app/components/HeroSection.vue"
-  ],
-  "breakpoints": [
-    "640px",
-    "768px",
-    "1024px",
-    "1280px",
-    "1536px"
-  ],
+  "open-pages": ["app/components/HeroSection.vue"],
+  "breakpoints": ["640px", "768px", "1024px", "1280px", "1536px"],
   "frameworks": [
     "@nuxt/icon",
     "pg.insight.events",
@@ -789,261 +781,71 @@
     "pine.cone.lib"
   ],
   "urls": {
-    "pages/index.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
+    "pages/index.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
     "components/DarkModeSwitch.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
-    "layouts/default.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "components/NavBar.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "pages/%5Bcategory%5D.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
+    "layouts/default.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "components/NavBar.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "pages/%5Bcategory%5D.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
     "components/UDropdownItem.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "components/ProfileActions.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
-    "components/PrimaryNav.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
+    "components/PrimaryNav.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
     "components/TheHamburger.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "components/ProductCard.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
-    "components/TheLogo.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "app.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "pages/store/%5Bid%5D.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "components/HeroSection.vue": {
-      "open-page-views": [
-        {
-          "w": 768,
-          "h": 0
-        }
-      ]
-    },
-    "components/LaunchSale.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "components/HotDeals.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "components/TheFooter.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
+    "components/TheLogo.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "app.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "pages/store/%5Bid%5D.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "components/HeroSection.vue": { "open-page-views": [{ "w": 768, "h": 0 }] },
+    "components/LaunchSale.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "components/HotDeals.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "components/TheFooter.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
     "components/AboutTemplate.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "pages/quick-start/%5B...slug%5D.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "components/WalkThrough.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
-    "pages/help-faqs.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
+    "pages/help-faqs.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
     "components/StoreHeader.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "chrome-error://chromewebdata/": {
-      "open-page-views": [
-        {
-          "w": 908,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 908, "h": 0 }]
     },
     "components/OgImage/ThePage.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
-    "pages/order-history.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
-    "app/pages/track-order.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
-    },
+    "pages/order-history.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
+    "app/pages/track-order.vue": { "open-page-views": [{ "w": 1024, "h": 0 }] },
     "app/components/HeroSection.vue": {
-      "open-page-views": [
-        {
-          "w": 934,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 934, "h": 0 }]
     },
     "app-nuxtui-layer/components/TheLogo.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "app-nuxtui-layer/components/ProfileActions.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "app/components/DarkModeSwitch.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "app/components/HotDeals.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     },
     "app-nuxtui-layer/components/nav/NavBar.vue": {
-      "open-page-views": [
-        {
-          "w": 1024,
-          "h": 0
-        }
-      ]
+      "open-page-views": [{ "w": 1024, "h": 0 }]
     }
   },
   "recent-classes": [
@@ -1133,7 +935,7 @@
     "hover:underline",
     "hover:text-primary",
     "dark:text-primary-400",
-    "text-primary",
+    "text-primary-500",
     "space-x-3",
     "space-y-4",
     "text-5xl",

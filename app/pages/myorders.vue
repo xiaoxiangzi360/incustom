@@ -49,10 +49,10 @@
                                                 </UTooltip>
                                             </span>
                                             <span class="mx-2">{{ formatTimestamp(order.createDate) }}</span>
-                                            <span class="text-primary cursor-pointer hover:underline">{{
+                                            <span class="text-primary-500 cursor-pointer hover:underline">{{
                                                 getOrderStatus(order.status) }}</span>
                                             <ULink :to="`/orderinfo?orderNumber=${order.orderNumber}`"
-                                                class="ml-auto text-primary hover:underline">
+                                                class="ml-auto text-primary-500 hover:underline">
                                                 Order Detail
                                             </ULink>
 
@@ -82,11 +82,13 @@
                                                                 </Tooltip>
                                                                 <Tooltip color="white"
                                                                     :overlayInnerStyle="{ color: '#333' }"
-                                                                    :title="item.productSku"
+                                                                    :title="item.skuPropList.map(spec => spec.value).join(' ')"
                                                                     :overlayStyle="{ maxWidth: '300px', whiteSpace: 'pre-line', wordBreak: 'break-word' }">
                                                                     <p
                                                                         class="text-sm text-[#AEAEAE] my-2 truncate-1-lines">
-                                                                        {{ item.productSku }}
+                                                                        <span v-for="spec in item.skuPropList"
+                                                                            class="mr-2">{{
+                                                                                spec.value }}</span>
                                                                     </p>
                                                                 </Tooltip>
                                                                 <p class="text-sm text-customblack">Price*Qty：${{

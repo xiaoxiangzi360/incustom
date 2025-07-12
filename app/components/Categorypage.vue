@@ -11,12 +11,12 @@
                 <div class="absolute inset-0  flex items-center">
                     <div class=" flex flex-col gap-3 text-white left-12 absolute">
                         <h2
-                            class="text-3xl font-semibold mb-0 text-shadow-custom group-hover:text-primary transition-colors duration-300">
+                            class="text-3xl font-semibold mb-0 text-shadow-custom group-hover:text-primary-500 transition-colors duration-300">
                             {{ item.title }}
                         </h2>
 
                         <div
-                            class="text-sm underline text-shadow-custom group-hover:text-primary transition-colors duration-300">
+                            class="text-sm underline text-shadow-custom group-hover:text-primary-500 transition-colors duration-300">
                             {{ item.description }}
                             <i class="fas fa-arrow-right ml-2"></i>
                         </div>

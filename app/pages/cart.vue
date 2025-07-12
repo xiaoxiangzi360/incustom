@@ -51,12 +51,12 @@
                                                     </Tooltip>
 
                                                     <Tooltip color="white" :overlayInnerStyle="{ color: '#333' }"
-                                                        :title="item.productSku"
+                                                        :title="item.product.skuSpec.specAttr"
                                                         :overlayStyle="{ maxWidth: '300px', whiteSpace: 'pre-line', wordBreak: 'break-word' }">
                                                         <div
                                                             class="text-sm text-[#8E8E8E]  truncate-1-lines max-w-52 mt-1">
                                                             {{
-                                                                item.productSku
+                                                                item.product.skuSpec.specAttr
                                                             }}</div>
                                                     </Tooltip>
 
@@ -65,7 +65,7 @@
                                         </td>
                                         <td class="py-4 pl-4 text-center p-6">{{
                                             item.product.skuSpec.customPrice.toFixed(2)
-                                            }}
+                                        }}
                                         </td>
                                         <td class="py-4 text-center w-28">
                                             <!-- <InputNumber v-model:value="item.productQuantity" :min="1" :max="9999" /> -->
@@ -142,9 +142,9 @@
                                                 <div>
                                                     <div class="font-medium text-lg">{{
                                                         item.product ? item.product.erpProduct.productEnglishName : ''
-                                                        }}
+                                                    }}
                                                     </div>
-                                                    <p class="text-sm text-gray-500">{{ item.productSku }}
+                                                    <p class="text-sm text-gray-500">{{ item.product.skuSpec.specAttr }}
                                                     </p>
                                                 </div>
                                             </div>

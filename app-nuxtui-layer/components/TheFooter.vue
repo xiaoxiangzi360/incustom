@@ -13,15 +13,16 @@
           Trusted to deliver 99.8M items since 2024
         </p>
 
-        <!-- 社交图标 -->
-        <!-- <div class="flex flex-wrap justify-start gap-4 mt-4">
-
-          <img @mouseover="hovered = item.id" @mouseleave="hovered = null"
-            :src="hovered === item.id ? item.img + '-active.png' : item.img + '.png'" class="w-10 cursor-pointer"
-            v-for="item in medialist">
-        </div> -->
         <div class="flex flex-wrap justify-center items-center gap-3 mt-4"><img src="/email-2.png" class="h-10" />
           <span>hello@incustom.com </span>
+        </div>
+        <!-- 社交图标 -->
+        <div class="flex flex-wrap justify-start gap-4 mt-4">
+
+          <NuxtLink :to="item.url" target="_blank" v-for="item in medialist">
+            <img @mouseover="hovered = item.id" @mouseleave="hovered = null"
+              :src="hovered === item.id ? item.img + '-active.png' : item.img + '.png'" class="w-10 cursor-pointer">
+          </NuxtLink>
         </div>
       </div>
 
@@ -108,26 +109,36 @@ const medialist = ([
   {
     id: 1,
     img: '/images/media1',
+    url: 'https://www.instagram.com/incustom0505/'
   },
   {
     id: 2,
     img: '/images/media2',
+    url: 'https://www.facebook.com/profile.php?id=61578243120322'
   },
   {
     id: 3,
     img: '/images/media3',
-  }, {
-    id: 4,
-    img: '/images/media4',
-  }, {
+    url: 'https://www.linkedin.com/in/in-custom-38a132374/'
+  },
+  // {
+  //   id: 4,
+  //   img: '/images/media4',
+  // }, 
+  {
     id: 5,
     img: '/images/media5',
-  }, {
+    url: 'https://www.tiktok.com/@incustom8'
+
+  },
+  {
     id: 6,
     img: '/images/media6',
+    url: 'https://www.pinterest.com/incustomstore/   '
   }, {
     id: 7,
     img: '/images/media7',
+    url: 'https://www.youtube.com/channel/UCxL5KwbHQFg86qC_XwbNRtg'
   },
 ])
 const hovered = ref(null)

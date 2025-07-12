@@ -180,10 +180,10 @@
                                             </div>
                                         </Tooltip>
                                         <Tooltip color="white" :overlayInnerStyle="{ color: '#333' }"
-                                            :title="item.productSku"
+                                            :title="item.specAttr"
                                             :overlayStyle="{ maxWidth: '300px', whiteSpace: 'pre-line', wordBreak: 'break-word' }">
                                             <div class="text-gray-300 text-sm my-2 truncate-1-lines max-w-52">
-                                                {{ item.productSku }}
+                                                {{ item.specAttr }}
                                             </div>
                                         </Tooltip>
                                         <p class="text-lg font-semibold">{{ item.productPrice }} x {{ item.qtyOrdered }}
@@ -435,6 +435,7 @@ const getProductlist = async () => {
                 productName: obj.erpProduct.productEnglishName,
                 mainPic: obj.erpProduct.mainPic,
                 productSku: key,
+                specAttr: obj.skuSpec.specAttr,
                 qtyOrdered: skunum[key],
                 productPrice: obj.skuSpec.customPrice,
                 productStyle: obj.erpProduct.productStyle,

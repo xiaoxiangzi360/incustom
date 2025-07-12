@@ -243,10 +243,10 @@ const checkout = () => {
                       </div>
                     </Tooltip>
 
-                    <Tooltip color="white" :overlayInnerStyle="{ color: '#333' }" :title="item.productSku"
+                    <Tooltip color="white" :overlayInnerStyle="{ color: '#333' }" :title="item.product.skuSpec.specAttr"
                       :overlayStyle="{ maxWidth: '300px', whiteSpace: 'pre-line', wordBreak: 'break-word' }">
                       <div class="text-sm text-[#8E8E8E]  truncate-1-lines w-52 mt-1">{{
-                        item.productSku
+                        item.product.skuSpec.specAttr
                       }}</div>
                     </Tooltip>
 

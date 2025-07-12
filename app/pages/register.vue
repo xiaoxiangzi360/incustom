@@ -32,14 +32,14 @@
                 <UFormGroup name="fullName" required class="mb-4">
                     <UInput v-model="formState.fullName" size="xl" placeholder="Full name" @blur="validatefullName" />
                     <span v-if="formErrors.fullName" class="text-red-500 text-sm mb-2">{{ formErrors.fullName
-                    }}</span>
+                        }}</span>
                 </UFormGroup>
 
                 <UFormGroup name="email" required class="mb-4">
                     <UInput v-model="formState.email" size="xl" placeholder="Email" type="email"
                         @blur="validateemail" />
                     <span v-if="formErrors.email" class="text-red-500 text-sm mb-2">{{ formErrors.email
-                    }}</span>
+                        }}</span>
                 </UFormGroup>
 
                 <UFormGroup name="password" required class="mb-4">
@@ -53,14 +53,14 @@
                         </template>
                     </UInput>
                     <span v-if="formErrors.password" class="text-red-500 text-sm mb-2">{{ formErrors.password
-                    }}</span>
+                        }}</span>
                 </UFormGroup>
 
                 <UFormGroup name="repassword" required class="mb-4">
                     <UInput v-model="formState.repassword" type="password" size="xl" placeholder="Confirm password"
                         @blur="validatePasswordMatch" />
                     <span v-if="formErrors.repassword" class="text-red-500 text-sm mb-2">{{ formErrors.repassword
-                    }}</span>
+                        }}</span>
                 </UFormGroup>
 
                 <UFormGroup name="phone" required class="mb-4">
@@ -71,7 +71,7 @@
                             class="flex-1 bg-gray-50 border-0 focus:ring-0" />
                     </div>
                     <span v-if="formErrors.phoneformat" class="text-red-500 text-sm mb-2">{{ formErrors.phoneformat
-                    }}</span>
+                        }}</span>
 
                 </UFormGroup>
 
@@ -85,14 +85,15 @@
                         User Registration Agreement
                     </a>
                     and
-                    <a href="/" class="text-primary underline hover:text-primary-600">
+                    <a href="https://incustom.com/article/privacy-policy"
+                        class="text-primary underline hover:text-primary-600">
                         Privacy Policy
                     </a>
                 </span>
             </div>
             <div class="flex items-center space-x-2  w-full max-w-md">
                 <span v-if="formErrors.agreement" class="w-full text-red-500 text-sm mb-2">{{ formErrors.agreement
-                }}</span>
+                    }}</span>
             </div>
 
             <UButton @click="handleRegister" class="text-white w-full max-w-md mt-6 p-3 block text-center">Sign up

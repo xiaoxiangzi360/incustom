@@ -110,8 +110,10 @@
                                                 class="w-20 h-20 object-cover rounded" />
                                             <div>
                                                 <h3 class="font-medium text-sm">{{ product.productName }}</h3>
-                                                <p class="text-sm text-gray-200">{{ product.productSku }}</p>
-                                                <button class="text-primary text-sm mt-1">View details</button>
+                                                <p class="text-sm text-gray-200"><span
+                                                        v-for="spec in product.skuPropList" class="mr-2">{{
+                                                            spec.value }}</span></p>
+                                                <button class="text-primary-500 text-sm mt-1">View details</button>
                                             </div>
                                         </div>
                                         <div class="flex items-center text-sm gap-2 mt-2"
@@ -138,8 +140,8 @@
                                     </div>
                                     <div class="flex justify-between mt-4">
                                         <span>Total(excl.tax):</span>
-                                        <span class="text-primary">${{ orderInfo.orderItemAmountOrdered
-                                            }}</span>
+                                        <span class="text-primary-500">${{ orderInfo.orderItemAmountOrdered
+                                        }}</span>
                                     </div>
                                 </div>
                             </div>

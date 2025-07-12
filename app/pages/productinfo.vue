@@ -251,7 +251,7 @@
                                                         <input type="radio" v-model="property.chooseindex"
                                                             :value="needindex + 2" />
                                                         <span class="font-semibold text-sm">{{ needinput.detailName
-                                                        }}</span>
+                                                            }}</span>
                                                     </div>
                                                     <div class="mt-4"
                                                         v-for="(inputitem, pindex) in needinput.inputList">
@@ -429,7 +429,7 @@
                         </div>
                         <div class="mt-2">
                             <h3 class="text-base font-normal mb-2 line-clamp-2">{{ product.erpProduct.productEnglishName
-                            }}</h3>
+                                }}</h3>
                             <p class="text-xl font-bold text-primary">${{ product.erpProduct.customPrice.toFixed(2) }}
                             </p>
                         </div>
@@ -491,7 +491,8 @@ const skuprice = ref(0);
 const cartloding = ref(false);
 const orderloding = ref(false);
 const orginproductinfo = ref({});
-const productid = route.query.id ?? '1912447337201045504';
+const productid = computed(() => route.query.id ?? '29201');
+
 const showDimensions = ref(true);
 const mainImageIndex = ref(0);
 
@@ -574,6 +575,8 @@ const decrement = () => {
 };
 
 const selectproperty = (index, type) => {
+    console.log(index);
+    console.log('type', type);
     if (type.disabled) {
         return
     }
@@ -591,7 +594,7 @@ const selectproperty = (index, type) => {
     if (!joinsku) {
         joinsku = []
     }
-    if (productinfo.value.normalPropertyList[index + 1]) {
+    if (productinfo.value.normalPropertyList[index + 1] && type.skuList) {
 
         let curskulist = joinsku.length > 0 ? joinsku.filter(item => type.skuList.includes(item)) : type.skuList || [];
         // let curskulist = type.skuList ? type.skuList : [];
@@ -623,53 +626,50 @@ const selectproperty = (index, type) => {
         }
     }
     productinfo.value.normalPropertyList[index]['selectedproperty'] = type;
-    if (productinfo.value.normalPropertyList[index + 1]) {
+    if (productinfo.value.normalPropertyList[index + 1] && type.skulist) {
         productinfo.value.normalPropertyList[index + 1]['selectedproperty'] = {};
 
-    } else {
-        let inputvalue = [];
-        let hasEmpty = false;
-        let needinputproperty;
-        let ischoose = true;
-
-        productinfo.value.normalPropertyList.forEach(element => {
-            if (isUndefinedOrEmptyObject(element.selectedproperty)) {
-                ischoose = false;
-            }
-            if (element.isneedinput && element.chooseindex == 2) {
-                let needinputlist = element.needinputlist.filter(item => item.isactive);
-
-                needinputlist.forEach(item => {
-                    inputvalue = item.inputvalue;
-                    hasEmpty = inputvalue.some(item => item === "");
-                });
-                needinputproperty = element;
-            }
-        });
-        if (needinputproperty) {
-
-            //如果有需要填的，而且输入框都填了，去试算价格
-            if (ischoose && !hasEmpty) {
-                getcustomprice(inputvalue)
-            }
-        } else {
-            //选到最后一个，去请求sku价格
-            const skuLists = productinfo.value.normalPropertyList
-                .map(property => property.selectedproperty?.skuList)
-                .filter(list => Array.isArray(list) && list.length > 0);
-
-            if (skuLists.length === 0) return;
-            let innersku = skuLists.reduce((acc, list) => acc.filter(sku => list.includes(sku)));
-            console.log(innersku);
-
-            let firstsku = innersku[0];
-            if (firstsku) {
-                getskuprice(firstsku);
-            }
-        }
-
     }
+    let inputvalue = [];
+    let hasEmpty = false;
+    let needinputproperty;
+    let ischoose = true;
 
+    productinfo.value.normalPropertyList.forEach(element => {
+        if (isUndefinedOrEmptyObject(element.selectedproperty)) {
+            ischoose = false;
+        }
+        if (element.isneedinput && element.chooseindex == 2) {
+            let needinputlist = element.needinputlist.filter(item => item.isactive);
+
+            needinputlist.forEach(item => {
+                inputvalue = item.inputvalue;
+                hasEmpty = inputvalue.some(item => item === "");
+            });
+            needinputproperty = element;
+        }
+    });
+    if (needinputproperty) {
+
+        //如果有需要填的，而且输入框都填了，去试算价格
+        if (ischoose && !hasEmpty) {
+            getcustomprice(inputvalue)
+        }
+    } else {
+        //选到最后一个，去请求sku价格
+        const skuLists = productinfo.value.normalPropertyList
+            .map(property => property.selectedproperty?.skuList)
+            .filter(list => Array.isArray(list) && list.length > 0);
+
+        if (skuLists.length === 0) return;
+        let innersku = skuLists.reduce((acc, list) => acc.filter(sku => list.includes(sku)));
+        console.log(innersku);
+
+        let firstsku = innersku[0];
+        if (firstsku) {
+            getskuprice(firstsku);
+        }
+    }
 
 };
 const getskuprice = async (sku) => {
@@ -769,7 +769,7 @@ const addtocart = async () => {
                 detailName = targetProperty.selectedproperty.detailName;
             }
             let createData = {
-                productId: productid,
+                productId: productid.value,
                 productStyle: productinfo.value.erpProduct.productStyle,
                 propertyList: selectproperlist,
                 shape: detailName,
@@ -899,7 +899,7 @@ const createorder = async () => {
                 detailName = targetProperty.selectedproperty.detailName;
             }
             let createData = {
-                productId: productid,
+                productId: productid.value,
                 productStyle: productinfo.value.erpProduct.productStyle,
                 propertyList: selectproperlist,
                 shape: detailName,
@@ -942,36 +942,70 @@ const createorder = async () => {
     }
 };
 
-let lastname = null;
-if (lastpage && lastpage.startsWith("/categories/")) {
-    const match = lastpage.match(/^\/categories\/(.+?)\/\d+$/);
-    if (match) {
-        lastname = match[1];
+let lastLabel = null
+let lastTo = null
+const breadcrumbLinks = ref([
+    { label: 'Home', to: '/', title: 'Home' }
+])
+if (lastpage) {
+    const decodedPath = decodeURIComponent(lastpage)
+
+    // 1. 分类页匹配：/Shade Sail-689 或 /Outdoor Covers-123
+    const categoryMatch = decodedPath.match(/^\/(.+?)-(\d+)(\/)?$/)
+    if (categoryMatch) {
+        lastLabel = categoryMatch[1] // "Shade Sail"
+        lastTo = lastpage
+    }
+
+    // 2. 集合页匹配：/collections/Summer Deals
+    const collectionMatch = decodedPath.match(/^\/collections\/([^/?#]+)/)
+    if (collectionMatch) {
+        lastLabel = collectionMatch[1] // "Summer Deals"
+        lastTo = lastpage
+    }
+
+    // ✅ 如果成功匹配，加入面包屑
+    if (lastLabel && lastTo) {
+        breadcrumbLinks.value.push({
+            label: lastLabel,
+            to: lastTo,
+            title: lastLabel
+        })
     }
 }
-if (lastpage && lastpage.startsWith("/collections/")) {
-    const match = lastpage.match(/^\/collections\/(.+?)\/\d+$/);
-    if (match) {
-        lastname = match[1];
+
+const updateBreadcrumbProduct = (productName) => {
+    const productPath = `/productinfo?id=${productid.value}`
+
+    // 检查最后一项是否已经是产品详情
+    const lastIndex = breadcrumbLinks.value.length - 1
+    const lastItem = breadcrumbLinks.value[lastIndex]
+
+    if (lastItem && lastItem.to?.startsWith('/productinfo')) {
+        // ✅ 替换最后一项
+        breadcrumbLinks.value[lastIndex] = {
+            label: productName,
+            to: productPath,
+            title: productName
+        }
+    } else {
+        // ✅ 第一次进详情页，正常添加
+        breadcrumbLinks.value.push({
+            label: productName,
+            to: productPath,
+            title: productName
+        })
     }
-}
-let breadcrumbLinks = [
-    { label: "Home", to: "/", title: 'Product Details' },
-];
-if (lastname) {
-    breadcrumbLinks.push({
-        label: decodeURIComponent(lastname),
-        to: lastpage,
-        title: lastname
-    });
 }
 
 const handleGetProudct = async () => {
     try {
         isLoading.value = true; // 开始加载
-        let parmes = { id: productid, needPropData: true };
+        let parmes = { id: productid.value, needPropData: true };
         let res = await getProductById(parmes);
-        breadcrumbLinks.push({ label: "Product Details", to: "/productinfo?id=" + productid, title: res.result.erpProduct.productEnglishName });
+        // breadcrumbLinks.push({ label: "Product Details", to: "/productinfo?id=" + productid, title: res.result.erpProduct.productEnglishName });
+        updateBreadcrumbProduct(res.result.erpProduct.productEnglishName)
+
 
         orginproductinfo.value = res.result;
         productinfo.value = res.result;

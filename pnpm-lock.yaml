@@ -38,6 +38,9 @@ importers:
       unhead:
         specifier: 1.11.14
         version: 1.11.14
+      vue-turnstile:
+        specifier: ^1.0.11
+        version: 1.0.11(vue@3.5.17(typescript@5.8.3))
     devDependencies:
       '@iconify/json':
         specifier: ^2.2.295
@@ -6730,6 +6733,11 @@ packages:
     resolution: {integrity: sha512-ogAF3P97NPm8fJsE4by9dwSYtDwXIY1nFY9T6DyQnGHd1E2Da94w9JIolpe42LJGIl0DwOHBi8TcRPlPGwbTtw==}
     peerDependencies:
       vue: ^3.2.0
+
+  vue-turnstile@1.0.11:
+    resolution: {integrity: sha512-iaTBoZ5oUqtNRto6bmbn6FQvW0h/sK7mPUJc1Qn4em+cELXN59U2FQTcpWfKssV3OY6lEZzmCpcn/zrb7htK3A==}
+    peerDependencies:
+      vue: ^3.2.45
 
   vue-types@3.0.2:
     resolution: {integrity: sha512-IwUC0Aq2zwaXqy74h4WCvFCUtoV0iSWr0snWnE9TnU18S66GAQyqQbRf2qfJtUuiFsBf6qp0MEwdonlwznlcrw==}
@@ -15203,6 +15211,10 @@ snapshots:
   vue-router@4.5.1(vue@3.5.17(typescript@5.8.3)):
     dependencies:
       '@vue/devtools-api': 6.6.4
+      vue: 3.5.17(typescript@5.8.3)
+
+  vue-turnstile@1.0.11(vue@3.5.17(typescript@5.8.3)):
+    dependencies:
       vue: 3.5.17(typescript@5.8.3)
 
   vue-types@3.0.2(vue@3.5.17(typescript@5.8.3)):

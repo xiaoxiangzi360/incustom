@@ -28,6 +28,7 @@
     "ant-design-vue": "^4.2.6",
     "lite-youtube-embed": "^0.3.3",
     "pinia": "^2.2.2",
+    "swiper": "^11.2.10",
     "unhead": "1.11.14"
   },
   "devDependencies": {

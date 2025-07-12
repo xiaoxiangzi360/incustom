@@ -9,44 +9,97 @@
         <p class="text-sm mt-2">
           Fulfilling your ideas on demand
         </p>
-        <p class="text-xs mt-1">
+        <p class="text-xs mt-2">
           Trusted to deliver 99.8M items since 2024
         </p>
 
         <!-- 社交图标 -->
-        <div class="flex flex-wrap justify-start gap-4 mt-4">
+        <!-- <div class="flex flex-wrap justify-start gap-4 mt-4">
 
           <img @mouseover="hovered = item.id" @mouseleave="hovered = null"
             :src="hovered === item.id ? item.img + '-active.png' : item.img + '.png'" class="w-10 cursor-pointer"
             v-for="item in medialist">
+        </div> -->
+        <div class="flex flex-wrap justify-center items-center gap-3 mt-4"><img src="/email-2.png" class="h-10" />
+          <span>hello@incustom.com </span>
         </div>
       </div>
 
       <!-- 右侧菜单 -->
       <div class="flex-[2] grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 text-left">
         <div>
-          <p class="font-semibold">Services</p>
-          <NuxtLink to="/" class="block hover:text-primary mt-6">Integrations</NuxtLink>
-          <NuxtLink to="/" class="block hover:text-primary mt-6">Shipping</NuxtLink>
-          <NuxtLink to="/" class="block hover:text-primary mt-6">Blog</NuxtLink>
+          <p class="font-medium text-lg mb-6">Customizations</p>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Size Customization</NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Pattern Printing</NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Material Options</NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Fabric Swatch Request
+          </NuxtLink>
         </div>
         <div class="pl-4">
-          <p class="font-semibold">Feature</p>
-          <NuxtLink to="/" class="block hover:text-primary mt-6">Requests</NuxtLink>
-          <NuxtLink to="/" class="block hover:text-primary mt-6">Policies</NuxtLink>
+          <p class="font-medium text-lg mb-6">Feature</p>
+          <NuxtLink to="/article/about-us" class="block hover:text-primary mt-4 font-normal text-white/80">About Us
+          </NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Our Mission</NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Sustainability & Materials
+          </NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Blog / Shade Tips</NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Affiliate / Influencer
+            Program</NuxtLink>
         </div>
         <div class="pl-4 hidden md:block">
-          <p class="font-semibold">Feature requests</p>
-          <NuxtLink to="/" class="block hover:text-primary mt-6">Recent updates</NuxtLink>
-          <NuxtLink to="/" class="block hover:text-primary mt-6">FAQ</NuxtLink>
+          <p class="font-medium text-lg mb-6">Feature requests</p>
+          <NuxtLink to="/article/faq" class="block hover:text-primary mt-4 font-normal text-white/80">FAQS</NuxtLink>
+          <NuxtLink class="block hover:text-primary mt-4 font-normal text-white/80">Track My Order</NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Shipping & Delivery
+          </NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Returns & Exchanges
+          </NuxtLink>
+          <NuxtLink to="/article/warranty-policy" class="block hover:text-primary mt-4 font-normal text-white/80">
+            Warranty Policy</NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Installation Guides
+          </NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">How to Measure</NuxtLink>
+          <NuxtLink to="/article/contact-us" class="block hover:text-primary mt-4 font-normal text-white/80">Contact Us
+          </NuxtLink>
+          <NuxtLink to="/" class="block hover:text-primary mt-4 font-normal text-white/80">Request a Quote</NuxtLink>
         </div>
       </div>
     </div>
+    <div
+      class="max-w-7xl mt-10 mx-auto px-4 flex flex-wrap text-sm gap-10 items-center border-t border-white/10 pt-10 md:space-y-0 md:flex-nowrap font-normal text-white/60">
+      <!-- 左侧链接 -->
+      <div class="flex flex-wrap items-center gap-1">
+        <NuxtLink to="/article/privacy-policy">Privacy</NuxtLink>
+        <span>|</span>
+        <NuxtLink to="/terms">Terms</NuxtLink>
+        <span>|</span>
+        <NuxtLink to="/cookies">Cookie Policy</NuxtLink>
+        <span>|</span>
+        <NuxtLink to="/accessibility">Accessibility</NuxtLink>
+      </div>
 
+      <!-- 中间语言/支付 -->
+      <div class="flex items-center gap-1">
+        <span>EN / USD</span>
+        <span>|</span>
+        <span>Visa</span>
+        <span>PayPal</span>
+        <span>ApplePay</span>
+        <span>Klarna</span>
+      </div>
+
+      <!-- 右侧信息 -->
+      <div class="flex items-center gap-1">
+        <span>Secure Checkout</span>
+        <span>|</span>
+        <span>Satisfaction Guarantee</span>
+      </div>
+    </div>
     <!-- 底部版权信息 -->
     <div class="text-center text-xs text-gray-400 mt-10">
       © 2025 Incustom. All rights reserved.
     </div>
+
   </footer>
 </template>
 <script setup>

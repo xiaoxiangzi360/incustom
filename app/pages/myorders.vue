@@ -4,20 +4,20 @@
             <!-- Sidebar -->
             <Userleft />
             <!-- Main Content -->
-            <main class="flex-1 p-8 space-y-6 bg-white">
+            <main class="flex-1 p-6 bg-white">
                 <div class="flex rounded">
-                    <div class="px-3 py-2 text-sm">
-                        Order number
+                    <div class="flex items-center px-5 text-sm">
+                        Order Number
                     </div>
                     <UInput v-model="ordervalue" />
                     <div @click="searchordernumber()"
-                        class="flex justify-center items-center bg-primary text-white ml-2 px-3 rounded-lg cursor-pointer">
+                        class="flex justify-center items-center bg-primary text-white ml-5 px-4 cursor-pointer rounded-xl">
                         search
                     </div>
                 </div>
-                <section>
+                <section class="mt-8">
                     <UTabs v-model="selected" :items="tabs" @change="onChange" :ui="{
-                        container: 'w-full', list: {
+                        container: 'w-full hidden', wrapper: 'px-4', list: {
                             tab: {
                                 active: 'text-primary font-bold border-b-2 border-sky-400', inactive: 'text-gray-500', background: 'bg-transparent',
                                 rounded: ''
@@ -25,10 +25,10 @@
                             background: 'bg-transparent'
                         }
                     }" />
-                    <div v-if="orders.length > 0" class="container mx-auto px-4 py-4">
+                    <div v-if="orders.length > 0" class="mx-auto px-4">
                         <div class="bg-white rounded-lg shadow-sm">
                             <!-- Table Header -->
-                            <div class="grid grid-cols-12 px-6 py-4 border-b text-sm font-medium text-gray-600">
+                            <div class="grid grid-cols-12 px-6 py-3 text-sm font-medium bg-[#F6F6F6]">
                                 <div class="col-span-6">Product</div>
                                 <div class="col-span-3 text-center">Total($)</div>
                                 <div class="col-span-3 text-right">Actions</div>
@@ -45,13 +45,17 @@
                                                 <UTooltip text="Copy the order number" :popper="{ arrow: true }">
                                                     <UIcon @click="copyToClipboard(order.orderNumber)"
                                                         name="i-ri:file-copy-2-line"
-                                                        class="w-5 h-5 mx-1 cursor-pointer" />
+                                                        class="w-5 h-5 mx-1 cursor-pointer hover:text-primary" />
                                                 </UTooltip>
                                             </span>
                                             <span class="mx-2">{{ formatTimestamp(order.createDate) }}</span>
-                                            <span class="text-blue-500 cursor-pointer hover:underline">{{
+                                            <span class="text-primary-500 cursor-pointer hover:underline">{{
                                                 getOrderStatus(order.status) }}</span>
-                                            <a href="#" class="ml-auto text-blue-500 hover:underline">Order Detail</a>
+                                            <ULink :to="`/orderinfo?orderNumber=${order.orderNumber}`"
+                                                class="ml-auto text-primary-500 hover:underline">
+                                                Order Detail
+                                            </ULink>
+
                                         </div>
 
                                         <!-- Product Info -->
@@ -136,17 +140,19 @@
                     </div>
 
                     <div v-if="orders.length == 0"
-                        class="flex flex-col items-center justify-center min-h-[300px] text-center space-y-4">
-                        <p class="text-gray-400 text-sm">
+                        class="flex flex-col items-center justify-center min-h-[300px] text-center">
+                        <img src="/empty.png" alt="Empty" class="w-32 h-32 mt-6" />
+
+                        <p class="text-gray-400 text-sm mt-4">
                             There is no historical order, you can go to buy the products you like!
                         </p>
                         <NuxtLink to="/"
-                            class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors mt-8">
+                            class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-600 transition-colors mt-12">
                             Go shopping
                         </NuxtLink>
                     </div>
                 </section>
-                <div class="flex justify-end mt-6">
+                <div class="flex justify-end mt-6" v-show="ordercount > 0">
                     <UPagination v-model="page" :page-count="pageSize" :total="ordercount"
                         :prev-button="{ icon: 'i-material-symbols:chevron-left' }"
                         :next-button="{ icon: 'i-material-symbols:chevron-right' }" />
@@ -252,7 +258,10 @@ const gotopay = async (orderNumber) => {
     router.push('/checkout?from=order&orderNo=' + orderNumber)
 
 };
+const checkdetail = () => {
+    router.push('/orderInfo?from=order&orderNo=' + orderNumber)
 
+}
 getOrderlist();
 getOrderstatuslist();
 
@@ -261,17 +270,17 @@ function getOrderStatus(status) {
         case 0:
             return 'none';
         case 500:
-            return 'unpaid';
+            return 'Unpaid';
         case 1000:
-            return 'pending Confirm';
+            return 'Pending Confirm';
         case 1500:
-            return 'awaiting Shipment';
+            return 'Awaiting Shipment';
         case 2000:
-            return 'shipped';
+            return 'Shipped';
         case 2500:
-            return 'delivered';
+            return 'Delivered';
         case 3000:
-            return 'cancelled';
+            return 'Cancelled';
         default:
             return 'unknown';
     }

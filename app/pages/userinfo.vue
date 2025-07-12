@@ -6,10 +6,10 @@
 
 
       <!-- Main Content -->
-      <main class="flex-1 p-8 space-y-6 bg-white">
+      <main class="flex-1 p-6 space-y-6 bg-white">
         <!-- Account Info -->
         <section class="border border-blackcolor/10 rounded-lg">
-          <div class="p-6 text-customblack font-semibold text-lg">Account</div>
+          <div class="p-3 px-6 text-customblack font-semibold text-lg">Account</div>
           <div class="grid grid-cols-2 gap-y-4 gap-x-12 border-t border-t-blackcolor/10 p-6">
             <div><span class="text-blackcolor/50 mb-2">Account email</span>
               <div class="font-medium mt-1">{{ userinfo.email }}</div>
@@ -29,7 +29,7 @@
 
         <!-- Address Cards -->
         <section class="border border-blackcolor/10 rounded-lg">
-          <div class="p-6 text-customblack font-semibold text-lg">Address</div>
+          <div class="p-3 px-6 text-customblack font-semibold text-lg">Address</div>
           <div class="grid grid-cols-3 gap-6 border-t border-t-blackcolor/10 p-6">
             <div @click="addnewaddress"
               class="flex items-center flex-wrap justify-center border border-blackcolor/10 rounded-lg cursor-pointer hover:bg-gray-50 text-gray-400 min-h-36">
@@ -40,11 +40,11 @@
               </div>
             </div>
             <div v-for="(item, idx) in addressarr" :key="idx"
-              class="relative border border-blackcolor/10 rounded-lg p-4 hover:shadow cursor-pointer"
+              class="relative border border-blackcolor/10 rounded-lg p-3 hover:shadow cursor-pointer"
               :class="{ 'border-primary-500 bg-primary-50': item.master == 1 }">
               <div class="space-y-1">
                 <p><span class="text-gray-500">Full name:</span> {{ item.firstName }}{{ item.lastName }}</p>
-                <p><span class="text-gray-500">Number:</span>{{ item.numberCode }} {{ item.number }}</p>
+                <p><span class="text-gray-500">Number:</span>({{ item.numberCode }}) {{ item.number }}</p>
                 <p><span class="text-gray-500">Address:</span> {{ item.countryName }} {{ item.provinceName }} {{
                   item.city }} {{
                     item.address }}</p>

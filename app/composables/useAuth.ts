@@ -96,11 +96,26 @@ export const useAuth = () => {
             throw error
         }
     }
+
+    const createContactUs = async (params) => {
+        try {
+            const response = await $api('/user/contactUs/createContactUs', {
+                method: 'POST',
+                body: params,
+            })
+
+            return response
+        } catch (error) {
+
+            throw error
+        }
+    }
+
     // ✅ 退出登录
     const logout = () => {
         token.value = null // 清除 token
         navigateTo('/login') // 跳转到登录页
     }
 
-    return { login, logout, register, sendrepassword, updatepassword, token }
+    return { login, logout, register, sendrepassword, updatepassword, token, createContactUs }
 }

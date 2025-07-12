@@ -63,7 +63,12 @@
                 <NuxtLink to="/forgetpassword" class="hover:underline">Forgot Password?</NuxtLink>
             </div>
 
-            <div class="w-full max-w-md mt-6 border-t pt-4 text-center text-sm text-gray-500">OR</div>
+            <div class="flex items-center w-full max-w-md mt-6 mb-4">
+                <div class="flex-grow h-px bg-customblack"></div>
+                <span class="mx-4 text-sm text-customblack">OR</span>
+                <div class="flex-grow h-px bg-customblack"></div>
+            </div>
+
 
             <div class="flex justify-center gap-4 mt-4">
                 <UButton variant="ghost"

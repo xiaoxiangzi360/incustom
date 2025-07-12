@@ -14,7 +14,7 @@ const { isMobileMenuOpen } = useMobileMenu()
 
 // 搜索历史相关
 const searchHistory = ref<{ id: string; date: string }[]>([])
-const now = new Date('2025-07-01T14:37:00+08:00')
+const now = new Date()
 const todayStr = now.toISOString().split('T')[0]
 const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
 const showAllHistory = ref(false)

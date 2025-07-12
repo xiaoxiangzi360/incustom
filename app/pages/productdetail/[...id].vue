@@ -65,7 +65,7 @@
     <!-- 原有内容，只有在非loading状态下显示 -->
     <div v-else class="max-row">
       <UBreadcrumb divider=">" :links="breadcrumbLinks" class="mb-6 text-blackcolor custom-breadcrumb text-2xl" :ui="{
-        li: 'text-base font-normal text-blackcolor',
+        li: 'text-base font-normal text-blackcolor', active: 'text-customblack dark:text-primary-400 underline',
       }" />
       <!-- 产品详情部分 -->
       <div class="text-gray-800" ref="detailSectionRef">
@@ -453,7 +453,7 @@ const productinfo = ref({
   normalPropertyList: []
 });
 const relatedList = [];
-const { getProductById, randomRecommendationProductByCatalogId, trialPriceCalculationBySpu, erpTryToCreateSku } = ProductAuth();
+const { getProductById, randomRecommendationProductByCatalogId, trialPriceCalculationBySpuV2, erpTryToCreateSku } = ProductAuth();
 const { creatCart } = cartAuth();
 
 const mainImage = ref('');
@@ -851,12 +851,12 @@ if (lastname) {
     to: lastpage
   });
 }
-breadcrumbLinks.push({ label: "Product Details", to: "/productdetail/" + productid });
+breadcrumbLinks.push({ label: "Product Details", to: "/productinfo?id=" + productid });
 
 const handleGetProudct = async () => {
   try {
     isLoading.value = true; // 开始加载
-    let parmes = { id: productid };
+    let parmes = { id: productid, needPropData: true };
     let res = await getProductById(parmes);
     orginproductinfo.value = res.result;
     productinfo.value = res.result;
@@ -939,7 +939,7 @@ const getcustomprice = async (inputvalue) => {
     parmes[`side${i + 1}`] = inputvalue[i] || 0;
   }
   try {
-    let res = await trialPriceCalculationBySpu(parmes);
+    let res = await trialPriceCalculationBySpuV2(parmes);
     let customizedprice = res.result.sellingPrice;
     skuprice.value = customizedprice;
     errorsize.value = '';
@@ -970,7 +970,7 @@ const customFilter = (option, searchQuery) => {
 };
 
 const checkdetail = (id) => {
-  router.push('/productdetail/' + id);
+  router.push('/productinfo?id=' + id);
 };
 
 const changeshow = (index) => {

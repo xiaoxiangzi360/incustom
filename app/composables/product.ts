@@ -83,9 +83,9 @@ export const ProductAuth = () => {
       throw error
     }
   }
-  const trialPriceCalculationBySpu = async (params) => {
+  const trialPriceCalculationBySpuV2 = async (params) => {
     try {
-      const response = await $api('/product/spuMeter/trialPriceCalculationBySpu', {
+      const response = await $api('/product/spuMeter/trialPriceCalculationBySpuV2', {
         method: 'POST',
         body: params,
       })
@@ -122,5 +122,5 @@ export const ProductAuth = () => {
       throw error
     }
   }
-  return { getProductById, randomRecommendationProductByCatalogId, getUserProductRollPage, getmapProductByProductSkuList, customizedProductPriceTrialCalculation, erpTryToCreateSku, trialPriceCalculationBySpu, getproductSearch, productSearchRecommendation }
+  return { getProductById, randomRecommendationProductByCatalogId, getUserProductRollPage, getmapProductByProductSkuList, customizedProductPriceTrialCalculation, erpTryToCreateSku, trialPriceCalculationBySpuV2, getproductSearch, productSearchRecommendation }
 }

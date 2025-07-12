@@ -59,7 +59,7 @@
 
                 <div class="flex justify-between gap-4 pt-2">
                     <Button type="default" class="flex-1" @click="closeModal">Cancel</Button>
-                    <Button type="primary" @click="subform" :loading="loading" class="flex-1">Submit</Button>
+                    <Button type="primary" @click="subform" :loading="loading" class="flex-1 bg-primary">Submit</Button>
                 </div>
             </Form>
         </UCard>
@@ -320,10 +320,11 @@ onUnmounted(() => {
 <style scoped>
 .ant-input,
 .ant-select-selector {
-    height: auto !important;
-    line-height: normal !important;
+    height: 32px !important;
+    display: flex;
+    align-items: center;
     padding: 4px 11px !important;
-    font-size: 14px !important;
+    font-size: 14px;
     border-radius: 4px;
     border-color: #d9d9d9;
 }

@@ -8,7 +8,7 @@
                         <main class="flex-1 space-y-6">
                             <section class="border border-blackcolor/10 rounded-lg bg-white"
                                 v-if="addressarr.length == 0">
-                                <div class="p-6 text-customblack font-semibold text-lg">Address
+                                <div class="p-3 px-6 text-customblack font-semibold text-lg">Address
                                     <span style="color: red;">*</span>
                                 </div>
                                 <div class="border-t border-t-blackcolor/10">
@@ -78,7 +78,7 @@
                             <!-- Account Info -->
                             <section class="border border-blackcolor/10 rounded-lg bg-white"
                                 v-if="addressarr.length > 0">
-                                <div class="p-6 text-customblack font-semibold text-lg">Address <span
+                                <div class="p-3 px-6 text-customblack font-semibold text-lg">Address <span
                                         style="color: red;">*</span></div>
                                 <div class="grid grid-cols-3 gap-y-4 gap-x-12 border-t border-t-blackcolor/10 p-6">
                                     <div><span class="text-blackcolor/50 mb-2">Full name</span>
@@ -86,8 +86,9 @@
                                         }}</div>
                                     </div>
                                     <div><span class="text-blackcolor/50 mb-2">Number</span>
-                                        <div class="font-medium mt-1">{{ addressinfo.numberCode }} {{ addressinfo.number
-                                            }}
+                                        <div class="font-medium mt-1">({{ addressinfo.numberCode }}) {{
+                                            addressinfo.number
+                                        }}
                                         </div>
                                     </div>
                                     <div v-show="from != 'order'">
@@ -102,22 +103,42 @@
                                 <div class="px-6 pb-6"><span class="text-blackcolor/50 mb-2">Address detail</span>
                                     <div class="font-medium mt-1">{{ addressinfo.countryName }} {{
                                         addressinfo.provinceName
-                                    }}{{ addressinfo.city }}{{ addressinfo.address }}</div>
+                                    }} {{ addressinfo.city }} {{ addressinfo.address }}</div>
                                 </div>
                             </section>
                             <section class="border border-blackcolor/10 rounded-lg bg-white">
-                                <div class="p-6 text-customblack font-semibold text-lg">Shipping methods <span
+                                <div class="p-3 px-6 text-customblack font-semibold text-lg">Shipping methods <span
                                         style="color: red;">*</span></div>
-                                <div class="border-t border-t-blackcolor/10 py-6 px-8">
-                                    <USelect :disabled="from == 'order' || templateid == '-1'" size="lg"
-                                        v-model="templateid" :options="templates" option-attribute="label"
-                                        value-attribute="feeId">
-                                    </USelect>
+                                <div class="border-t border-t-blackcolor/10 py-6 px-6">
+                                    <!-- 引入 USelectMenu 和 UButton -->
+                                    <USelectMenu v-model="templateid" :options="templates" option-attribute="label"
+                                        value-attribute="feeId"
+                                        :ui="{ rounded: 'rounded-md', option: { padding: 'px-2 py-2', base: 'py-2' } }"
+                                        :disabled="from == 'order' || templateid == '-1'">
+                                        <template #default="{ open }">
+                                            <UButton size="lg" color="white" variant="outline"
+                                                class="w-full justify-between h-10 rounded-md"
+                                                :class="{ 'ring-2 ring-primary': open }">
+                                                <!-- 当前选中项显示 -->
+                                                <span>
+                                                    {{
+                                                        templates.find(item => item.feeId === templateid)?.label ||
+                                                        'Select Shipping Method'
+                                                    }}
+                                                </span>
+                                                <UIcon name="i-heroicons-chevron-down" />
+                                            </UButton>
+                                        </template>
+
+
+                                    </USelectMenu>
+
                                 </div>
                             </section>
                             <section class="border border-blackcolor/10 rounded-lg bg-white">
-                                <div class="p-6 text-customblack font-semibold text-lg">Payment methods <span
-                                        style="color: red;">*</span></div>
+                                <div class="p-3 px-6 text-customblack font-semibold text-lg">Payment methods <span
+                                        style="color: red;">*</span>
+                                </div>
                                 <div class="grid grid-cols-3 gap-6 border-t border-t-blackcolor/10 p-6">
                                     <div v-for="option in options" :key="option.value"
                                         class="flex items-center space-x-4 p-2 rounded-md"
@@ -130,7 +151,7 @@
                                 </div>
                             </section>
                             <section class="border border-blackcolor/10 rounded-lg bg-white">
-                                <div class="p-6 text-customblack font-semibold text-lg">Notes</div>
+                                <div class="p-3 px-6 text-customblack font-semibold text-lg">Notes</div>
                                 <div class="border-t border-t-blackcolor/10 py-6 px-8">
                                     <UTextarea v-model="notes" />
                                 </div>
@@ -227,7 +248,7 @@
     </div>
     <UModal v-model="showModal" width="w-full" :ui="{ width: 'sm:max-w-5xl' }">
         <section class="border border-blackcolor/10 rounded-lg">
-            <div class="relative p-6 text-customblack font-semibold text-lg">
+            <div class="relative p-3 px-6 text-customblack font-semibold text-lg">
                 Address
                 <!-- 关闭按钮 -->
                 <button @click="showModal = false"
@@ -242,7 +263,7 @@
                     :class="{ 'border-primary-500 bg-primary-50': item.selected == 1 }" @click="selectaddress(idx)">
                     <div class="space-y-1">
                         <p><span class="text-gray-500">Full name:</span> {{ item.firstName }}{{ item.lastName }}</p>
-                        <p><span class="text-gray-500">Number:</span>{{ item.numberCode }} {{ item.number }}</p>
+                        <p><span class="text-gray-500">Number:</span>({{ item.numberCode }}) {{ item.number }}</p>
                         <p><span class="text-gray-500">Address:</span> {{ item.countryName }} {{ item.provinceName }} {{
                             item.city }} {{
                                 item.address }}</p>
@@ -295,7 +316,7 @@ import { message, Tooltip } from 'ant-design-vue'
 import { useRouter, useRoute } from 'vue-router'
 const router = useRouter()
 const route = useRoute();
-const orderNo = ref('')
+const orderNo = ref('') as any
 const orderInfo = ref({}) as any
 const productlists = ref([])
 const skuList = ref([])
@@ -356,6 +377,7 @@ const applyCoupon = async () => {
     let addparmes = {
         buyerCity: addressinfo.value.city,
         buyerCountryCode: addressinfo.value.country,
+        buyerCountryName: addressinfo.value.countryName,
         buyerEmail: addressinfo.value.email,
         buyerFirstName: addressinfo.value.firstName,
         buyerAddress: addressinfo.value.address,
@@ -481,6 +503,7 @@ const getShippingRulelist = async () => {
 const handleGetOrder = async () => {
 
     let orderNumber = route.query.orderNo;
+    orderNo.value = orderNumber
 
     try {
         let params = {
@@ -505,6 +528,7 @@ const handleGetOrder = async () => {
         });
         addressinfo.value.city = result.buyerCity;
         addressinfo.value.country = result.buyerCountryCode;
+        addressinfo.value.countryName = result.buyerCountryName;
         addressinfo.value.email = result.buyerEmail;
         addressinfo.value.firstName = result.buyerFirstName;
         addressinfo.value.address = result.buyerAddress;
@@ -764,6 +788,7 @@ const handleSubmit = async () => {
     let addparmes = {
         buyerCity: addressinfo.value.city,
         buyerCountryCode: addressinfo.value.country,
+        buyerCountryName: addressinfo.value.countryName,
         buyerEmail: addressinfo.value.email,
         buyerFirstName: addressinfo.value.firstName,
         buyerAddress: addressinfo.value.address,
@@ -1084,6 +1109,10 @@ tbody tr {
     @apply w-5 h-5 rounded border-gray-300;
 }
 
+.cart-table__action-button {
+    @apply text-primary-500 hover:text-primary-600 transition-colors;
+}
+
 .truncate-1-lines {
     display: -webkit-box;
     -webkit-line-clamp: 1;
@@ -1093,10 +1122,11 @@ tbody tr {
 
 .ant-input,
 .ant-select-selector {
-    height: auto !important;
-    line-height: normal !important;
+    height: 32px !important;
+    display: flex;
+    align-items: center;
     padding: 4px 11px !important;
-    font-size: 14px !important;
+    font-size: 14px;
     border-radius: 4px;
     border-color: #d9d9d9;
 }

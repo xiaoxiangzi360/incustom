@@ -8,23 +8,26 @@ const usermenu = [
   {
     lable: 'Order',
     url: '/myorders',
-    type: 'link'
+    type: 'link',
+    img: '/order.png'
   },
-  {
-    lable: 'My Favorites',
-    url: '/',
-    type: 'link'
-
-  },
+  // {
+  //   lable: 'My Favorites',
+  //   url: '/',
+  //   type: 'link',
+  //   img: '/favorite.png'
+  // },
   {
     lable: 'Account Setting',
     url: '/userinfo',
-    type: 'link'
+    type: 'link',
+    img: '/setting.png'
   },
   {
     lable: 'Sign Out',
     url: '',
-    type: 'button'
+    type: 'button',
+    img: '/loginout.png'
   }
 ]
 
@@ -129,19 +132,20 @@ function goShopping() {
 }
 const checkdetai = (id, sku) => {
 
-  router.push('/productdetail/' + id + '/' + sku)
+  router.push('/productinfo?id=' + id + '&sku=' + sku)
 }
 const getlocation = async () => {
 
   try {
     if (locationinfo.value) {
+      console.log(locationinfo.value);
       nowCountry.value = {
-        countryCode: locationinfo.value.countryCode,
-        countryName: locationinfo.value.countryName,
+        countryCode: locationinfo.value.country_short,
+        countryName: locationinfo.value.country_long,
       }
       selectedCountry.value = {
-        countryCode: locationinfo.value.countryCode,
-        countryName: locationinfo.value.countryName,
+        countryCode: locationinfo.value.country_short,
+        countryName: locationinfo.value.country_long,
       }
     } else {
       let res = await getUserlPBylp2Location();
@@ -350,9 +354,19 @@ const checkout = () => {
 
         <template #panel>
           <div class="text-customblack p-1">
-            <div v-for="item in usermenu" class="my-3 px-2 hover:text-primary">
-              <NuxtLink v-if="item.type == 'link'" :to="item.url">{{ item.lable }}</NuxtLink>
-              <div v-if="item.type == 'button'" @click="loginout">{{ item.lable }}</div>
+            <div v-for="item in usermenu" class="p-2 text-gray-400 hover:bg-primary-50">
+              <NuxtLink v-if="item.type == 'link'" :to="item.url">
+                <div class="flex items-center">
+                  <img :src="item.img" class="w-4 mr-2 h-4" />
+                  <div>{{ item.lable }}</div>
+                </div>
+              </NuxtLink>
+              <div v-if="item.type == 'button'" @click="loginout">
+                <div class="flex items-center">
+                  <img :src="item.img" class="w-4 mr-2 h-4" />
+                  <div>{{ item.lable }}</div>
+                </div>
+              </div>
             </div>
           </div>
         </template>
@@ -360,8 +374,8 @@ const checkout = () => {
 
     </div>
 
-    <UPopover color="white" v-model:open="langOpen" mode="hover" :ui="{
-      base: 'overflow-visible border-none shadow-2xl bg-white rounded-md focus:outline-none focus:ring-0 !ring-0 custom-popover-shadow'
+    <UPopover color="white" v-model:open="langOpen" mode="hover" trigger="manual" :ui="{
+      base: 'overflow-visible border-none shadow-2xl  focus:outline-none focus:ring-0 !ring-0 custom-popover-shadow'
     }" :popper="{ placement: 'bottom' }">
       <template #default>
         <div class="flex items-center space-x-2 px-4 py-2 rounded-lg transition">
@@ -376,8 +390,8 @@ const checkout = () => {
       </template>
 
       <template #panel>
-        <div class="flex items-center justify-center bg-gray-100 ">
-          <UCard class="w-full max-w-sm p-2 h-60" :ui="{
+        <div class="flex items-center justify-center bg-gray-100 bg-white rounded-md">
+          <UCard class="w-full max-w-xs py-0 h-44" :ui="{
             ring: 'ring-0'
           }">
             <div class="text-sm text-gray-500 mb-4">
@@ -385,7 +399,7 @@ const checkout = () => {
             </div>
             <form @submit.prevent="handleSubmit">
               <!-- 国家选择 -->
-              <div class="mb-4">
+              <div class="mb-2">
                 <USelectMenu v-model="selectedCountry" :search-attributes="['countryCode', 'countryName']" searchable
                   :options="countryarr" placeholder="Select Country" class="w-full">
                   <template #label>

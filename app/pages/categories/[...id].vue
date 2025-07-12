@@ -2,7 +2,14 @@
     <div class="bg-white">
         <div class="max-row py-8">
             <UBreadcrumb divider=">" :links="breadcrumbLinks" class="mb-6 text-blackcolor custom-breadcrumb text-2xl"
-                :ui="{ li: 'text-base font-normal text-blackcolor' }" />
+                :ui="{
+                    base: 'hover:underline',
+                    li: 'text-sm font-normal text-gray-400 ',
+                    active: 'text-customblack dark:text-primary-400 no-underline hover:no-underline',
+                    divider: {
+                        base: 'px-2 text-text-gray-400 no-underline'
+                    }
+                }" />
 
             <!-- Hero Section -->
             <div class="relative h-[300px] overflow-hidden">
@@ -22,7 +29,7 @@
             <!-- Main Content -->
             <div class="container mx-auto px-6 mt-12">
                 <!-- Filters -->
-                <div class="flex justify-between items-center mb-8">
+                <div class="flex justify-between items-center mb-8" v-show="products.length != 0">
                     <div class="flex gap-6">
                         <UCheckbox :checked="selected === 'Hot Selling'" @change="handleChange('Hot Selling')"
                             label="Hot Selling" class="text-sm" />
@@ -61,33 +68,38 @@
 
                     <!-- Product List -->
                     <div v-show="products.length > 0 && !loading" class="grid grid-cols-4 gap-6 mb-12">
-                        <div @click="checkdetail(product.id)" v-for="(product, index) in products" :key="index"
-                            class="bg-white rounded-lg cursor-pointer">
+                        <NuxtLink :to="`/productinfo?id=${product.id}`" v-for="(product, index) in products"
+                            :key="index" class="bg-white rounded-lg cursor-pointer group">
                             <div class="aspect-square overflow-hidden rounded-t-lg">
                                 <img :src="product.erpProduct.mainPic ?? '/images/empty.jpg'"
                                     :alt="product.erpProduct.productEnglishName"
-                                    class="w-full h-full object-cover object-center" style="aspect-ratio: 1 / 1;" />
+                                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
+                                    style="aspect-ratio: 1 / 1;" />
                             </div>
                             <div>
-                            <h3
-                            class="text-sm mb-2 text-customblack mt-3 line-clamp-2 cursor-default"
-                            :title="product.erpProduct.productEnglishName"
-                            >
-                            {{ product.erpProduct.productEnglishName }}
-                            </h3>
+                                <h3 class="text-sm mb-2 text-customblack mt-3 line-clamp-2 cursor-default font-normal"
+                                    :title="product.erpProduct.productEnglishName">
+                                    {{ product.erpProduct.productEnglishName }}
+                                </h3>
 
                                 <p class="text-[#AEAEAE] mb-2 text-sm">{{ product.size }}</p>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-base font-semibold">
+                                    <span class="text-base font-medium
+">
                                         ${{ product.erpProduct.customPrice }}
                                     </span>
                                 </div>
                             </div>
-                        </div>
+                        </NuxtLink>
                     </div>
 
-                    <div class="text-center my-12" v-show="products.length === 0 && !loading">
-                        Not Found Products
+                    <div class="text-center my-12 flex flex-col items-center justify-center"
+                        v-show="products.length === 0 && !loading">
+                        <img src="/empty.png" alt="Empty" class="w-32 h-32" />
+                        <p class="text-gray-400 text-sm mt-4">
+                            Not Found Products
+                        </p>
+
                     </div>
                 </div>
             </div>
@@ -96,6 +108,7 @@
 </template>
 
 <script lang="ts" setup>
+import { title } from 'process'
 import { ref, watch } from 'vue'
 
 const sortarray = [
@@ -146,8 +159,8 @@ const category = route.params.id[0]
 const cateid = route.params.id[1] ?? 12
 
 const breadcrumbLinks = [
-    { label: 'Home', to: '/' },
-    { label: category, to: '/categories/' + category + '/' + cateid }
+    { label: 'Home', to: '/', title: 'Home' },
+    { label: decodeURIComponent(category), to: '/categories/' + category + '/' + cateid, title: category }
 ]
 
 const handleChange = (value) => {
@@ -186,7 +199,7 @@ const getlistlist = async () => {
 getlistlist()
 
 const checkdetail = (id) => {
-    router.push('/productdetail/' + id)
+    router.push('/productinfo?id=' + id)
 }
 </script>
 

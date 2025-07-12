@@ -5,11 +5,13 @@
                 FAQ
             </h1>
 
-            <UAccordion variant="solid" size="xl" :items="faqItems" class="text-title">
+            <UAccordion variant="solid" size="xl" :items="faqItems" :ui="{
+                container: 'border-b border-[#00000014] dark:border-white'
+            }" class="text-title ">
                 <template #default="{ item, index, open }">
                     <UButton color="gray" variant="ghost"
-                        class="border-b border-gray-200 dark:border-gray-700 text-title w-full flex justify-between items-center"
-                        :ui="{ rounded: 'rounded-none', padding: { sm: 'p-5' } }">
+                        class="text-arialblack w-full flex justify-between items-center text-lg"
+                        :ui="{ rounded: 'rounded-none', padding: { sm: 'px-5 py-4' } }">
                         <span class="truncate text-blackcolor text-left">{{ index + 1 }}. {{ item.label }}</span>
                         <UIcon name="i-heroicons-chevron-down-20-solid"
                             class="w-5 h-5 transition-transform duration-200" :class="[open ? 'rotate-180' : '']" />
@@ -17,7 +19,7 @@
                 </template>
 
                 <template #item="{ item }">
-                    <div class="p-5 text-gray-700 dark:text-gray-300">
+                    <div class="px-5 py-0 text-[#5A5B5B] dark:text-white text-lg">
                         <p class="content" v-html="item.content"></p>
 
                     </div>

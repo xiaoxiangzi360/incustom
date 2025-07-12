@@ -94,5 +94,6 @@ export const OrderAuth = () => {
             throw error
         }
     }
+
     return { generateOrderId, createOrder, getOrderlists, groupUserOrderStatusCount, cancleOrder, getUserOrderDocByOrderNumber, tryOrder }
 }

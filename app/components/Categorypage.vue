@@ -4,12 +4,19 @@
     <div class="max-row mx-auto px-32">
         <div class="grid sm:grid-cols-1 md:grid-cols-2 gap-6">
             <div v-for="(item, index) in items" :key="index" @click="checklist(item.title)"
-                class="relative h-[200px] rounded-lg overflow-hidden group cursor-pointer">
-                <img :src="item.image" class="absolute inset-0 w-full h-full object-cover object-top" alt="">
+                class="relative h-[220px] rounded-lg overflow-hidden group cursor-pointer transition-shadow duration-300">
+                <img :src="item.image"
+                    class="absolute inset-0 w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                    alt="">
                 <div class="absolute inset-0  flex items-center">
                     <div class=" flex flex-col gap-3 text-white left-12 absolute">
-                        <h2 class="text-3xl font-semibold mb-0 text-shadow-custom">{{ item.title }}</h2>
-                        <div class="text-sm underline text-shadow-custom ">
+                        <h2
+                            class="text-3xl font-semibold mb-0 text-shadow-custom group-hover:text-primary-500 transition-colors duration-300">
+                            {{ item.title }}
+                        </h2>
+
+                        <div
+                            class="text-sm underline text-shadow-custom group-hover:text-primary-500 transition-colors duration-300">
                             {{ item.description }}
                             <i class="fas fa-arrow-right ml-2"></i>
                         </div>

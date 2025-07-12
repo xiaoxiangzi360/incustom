@@ -5,7 +5,7 @@
 export default {
   title: 'Incustom',
   description:
-    'Vue Designer Nuxt Tailwind CSS / Nuxt UI - Quick start template',
+    'Incustom – A one-stop product customization platform to easily create your own unique items.',
   logo: 'incustom.png',
   author: 'Pinegrow',
   url: 'https://pg-nuxtui.netlify.app',

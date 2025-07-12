@@ -1,15 +1,15 @@
 <template>
-    <div class="mt-14">
+    <div class="mt-16">
         <div class="max-row">
             <!-- 标题 -->
-            <h1 class="text-2xl md:text-5xl mb-8 md:mb-14 bg-clip-text font-normal text-blackcolor text-center">
+            <h1 class="text-2xl md:text-5xl mb-6 md:mb-8 bg-clip-text font-normal text-blackcolor text-center">
                 Most Popular Products
             </h1>
 
             <div class="relative">
                 <!-- 骨架屏 -->
-                <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <div v-for="n in 3" :key="n" class="rounded-lg overflow-hidden shadow-md bg-white">
+                <div v-if="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+                    <div v-for="n in 5" :key="n" class="rounded-lg overflow-hidden shadow-md bg-white">
                         <!-- 图片骨架 -->
                         <div class="relative w-full aspect-square bg-gray-200 animate-pulse"></div>
                         <!-- 内容骨架 -->
@@ -25,21 +25,37 @@
                 </div>
 
                 <!-- Swiper 轮播图 -->
-                <Swiper v-else :modules="swiperModules" :slides-per-view="3" :space-between="24" :breakpoints="{
-                    0: { slidesPerView: 1 },
-                    640: { slidesPerView: 1 },
-                    768: { slidesPerView: 2 },
-                    1024: { slidesPerView: 3 }
-                }" :autoplay="{ delay: 3000, disableOnInteraction: false }" :slides-per-group="3" :loop="true"
-                    :pagination="{ clickable: true }" class="product-swiper">
+                <Swiper v-else :modules="swiperModules" :space-between="24" :breakpoints="{
+                    0: {
+                        slidesPerView: 1,
+                        slidesPerGroup: 1
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        slidesPerGroup: 2
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        slidesPerGroup: 3
+                    },
+                    1024: {
+                        slidesPerView: 4,
+                        slidesPerGroup: 4
+                    },
+                    1280: {
+                        slidesPerView: 5,
+                        slidesPerGroup: 5
+                    }
+                }" :autoplay="{ delay: 5000, disableOnInteraction: false }" :loop="true"
+                    :pagination="{ clickable: true }" :speed="1000" class="product-swiper">
                     <SwiperSlide v-for="(product, index) in products" :key="index">
-                        <div @click="checkdetail(product.id)"
-                            class="rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-300 hover:scale-[1.02] hover:-translate-y-1 hover:shadow-xl cursor-pointer">
+                        <ULink :to="`/productinfo?id=${product.id}`"
+                            class="rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-300 hover:scale-[1.05] hover:-translate-y-1 hover:shadow-xl cursor-pointer">
                             <!-- 产品图片 -->
                             <div class="relative w-full aspect-square overflow-hidden">
                                 <img :src="product.erpProduct.mainPic ?? '/images/empty.jpg'"
                                     :alt="product.erpProduct.productEnglishName" loading="lazy"
-                                    class="w-full h-full object-cover object-top">
+                                    class="w-full h-full object-cover object-top transition-all duration-300 hover:rounded-[8px]">
                             </div>
 
                             <!-- 产品详情 -->
@@ -47,13 +63,13 @@
                                 <h3 class="text-base font-normal mb-2 line-clamp-2 min-h-[3em]">{{
                                     product.erpProduct.productEnglishName }}</h3>
                                 <div class="flex items-center justify-between">
-                                    <span class="text-primary font-medium text-lg">
+                                    <span class="text-customblack font-medium text-lg">
                                         $ {{ product.erpProduct.customPrice }}
                                     </span>
                                     <span class="text-[#8E8E8E] text-sm">{{ product.thirtyDaysSales }} sold</span>
                                 </div>
                             </div>
-                        </div>
+                        </ULink>
                     </SwiperSlide>
                 </Swiper>
             </div>
@@ -80,7 +96,7 @@ const products = ref([]);
 const isLoading = ref(true); // 添加加载状态
 
 const checkdetail = (id) => {
-    router.push('/productdetail/' + id)
+    router.push('/productinfo?id=' + id)
 }
 
 const getpopularlist = async () => {
@@ -89,7 +105,7 @@ const getpopularlist = async () => {
         let parmes = {
             sortKey: 'thirtyDaysSales',
             pageNum: 1,
-            pageSize: 9,
+            pageSize: 15,
             sortOrder: 'desc',
             fields: "id,productState,erpProduct.productEnglishName,erpProduct.customPrice,erpProduct.mainPic,thirtyDaysSales",
 

@@ -44,11 +44,11 @@ export default defineNuxtConfig({
     fallback: true, // ✅ 自動生成404.html兜底
   },
   nitro: {
-    preset: 'netlify',
+    preset: 'netlify-static',
     devProxy: {
       '/api/': {
         target: 'https://testapi.incustom.com',
-        // target: 'http://192.168.50.95:50500',
+        // target: 'http://192.168.8.52:50500',
         changeOrigin: true,
         prependPath: false,
       }
@@ -96,7 +96,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://testapi.incustom.com',
-      // apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://192.168.50.95:50500',
+      // apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://192.168.8.52:50500',
     }
   },
   ui: {
@@ -188,12 +188,10 @@ export default defineNuxtConfig({
       'avatars.githubusercontent.com',
       'gravatar.com',
     ],
+
     alias: {
-      '@': resolve(__dirname, './'),
+      unsplash: 'https://images.unsplash.com',
     },
-    // alias: {
-    //   unsplash: 'https://images.unsplash.com',
-    // },
     vite: {
       resolve: {
         alias: {
@@ -306,6 +304,7 @@ export default defineNuxtConfig({
   },
 
   ogImage: {
+    enabled: false,
     defaults: {
       extension: 'jpeg',
     },

@@ -4,7 +4,7 @@
 
 
             <!-- Main Content -->
-            <div class="container mx-auto px-6 mt-12">
+            <div class="container mx-auto px-6 mt-6">
                 <!-- Filters -->
                 <div class="sticky [top:122px] bg-white z-10 flex justify-between items-center mb-8 py-4">
                     <div class="flex gap-6">
@@ -41,21 +41,22 @@
                     <!-- Product List -->
                     <div v-show="products.length > 0 && !loading" class="grid grid-cols-4 gap-6 mb-12">
                         <div @click="checkdetail(product.id)" v-for="(product, index) in products" :key="index"
-                            class="bg-white rounded-lg cursor-pointer">
+                            class="bg-white rounded-lg cursor-pointer group">
                             <div class="aspect-square overflow-hidden rounded-t-lg">
                                 <img :src="product.productMainPic ?? '/images/empty.jpg'"
-                                    :alt="product.productEnglishName" class="w-full h-full object-cover object-center"
+                                    :alt="product.productEnglishName"
+                                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                                     style="aspect-ratio: 1 / 1;" />
                             </div>
                             <div>
-                                <h3 class="text-sm mb-2 text-customblack mt-3 line-clamp-2 cursor-default"
+                                <h3 class="text-sm font-normal mb-2 text-customblack mt-3 line-clamp-2 cursor-default"
                                     :title="product.productEnglishName">
                                     {{ product.productEnglishName }}
                                 </h3>
 
                                 <p class="text-[#AEAEAE] mb-2 text-sm">{{ product.size }}</p>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-base font-semibold">
+                                    <span class="text-base font-semibold text-primary">
                                         ${{ product.customPriceStr }}
                                     </span>
                                 </div>
@@ -73,25 +74,42 @@
                         </div>
                     </div>
 
-                    <div class="text-customblack text-xl" v-show="recommendproducts.length > 0 && !loading">New Product
+                    <div class="flex justify-between items-center text-customblack text-xl mb-2"
+                        v-show="products.length === 0 && !loading">
+                        <span>New Product</span>
+                        <button class="text-sm text-gray-500 hover:text-primary hover:underline"
+                            @click="getproductSearchRecommendation">
+                            Refresh the items
+                        </button>
                     </div>
-                    <div v-show="recommendproducts.length > 0 && !loading" class="grid grid-cols-5 gap-4 mb-12 mt-4">
+                    <!-- 推荐产品 Skeleton -->
+                    <div class="grid grid-cols-5 gap-4 mb-12 mt-4" v-if="recommendLoading">
+                        <div v-for="n in 5" :key="n" class="bg-white rounded-lg shadow">
+                            <div class="aspect-square bg-gray-200 rounded w-full mb-4 animate-pulse h-44"></div>
+                            <div class="h-8 bg-gray-200 rounded w-full mb-2 animate-pulse"></div>
+                            <div class="h-4 bg-gray-200 rounded w-1/2 animate-pulse"></div>
+                        </div>
+                    </div>
+
+                    <div v-show="recommendproducts.length > 0 && !recommendLoading"
+                        class="grid grid-cols-5 gap-4 mb-12 mt-4">
                         <div @click="checkdetail(product.id)" v-for="(product, index) in recommendproducts" :key="index"
-                            class="bg-white rounded-lg cursor-pointer">
+                            class="bg-white rounded-lg cursor-pointer group">
                             <div class="aspect-square overflow-hidden rounded-t-lg">
                                 <img :src="product.productMainPic ?? '/images/empty.jpg'"
-                                    :alt="product.productEnglishName" class="w-full h-full object-cover object-center"
+                                    :alt="product.productEnglishName"
+                                    class="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
                                     style="aspect-ratio: 1 / 1;" />
                             </div>
                             <div>
-                                <h3 class="text-sm mb-2 text-customblack mt-3 line-clamp-2 cursor-default"
+                                <h3 class="text-sm mb-2 font-normal text-customblack mt-3 line-clamp-2 cursor-default"
                                     :title="product.productEnglishName">
                                     {{ product.productEnglishName }}
                                 </h3>
 
                                 <p class="text-[#AEAEAE] mb-2 text-sm">{{ product.size }}</p>
                                 <div class="flex justify-between items-center">
-                                    <span class="text-base font-semibold">
+                                    <span class="text-base font-semibold text-primary">
                                         ${{ product.customPriceStr }}
                                     </span>
                                 </div>
@@ -106,6 +124,7 @@
 </template>
 
 <script lang="ts" setup>
+import { message } from 'ant-design-vue'
 import { ref, watch } from 'vue'
 
 const sortarray = [
@@ -123,7 +142,7 @@ const sortarraymapping = {
         sort: 'desc'
     },
 }
-
+const recommendLoading = ref(false)
 const selectedsort = ref(sortarray[0])
 const selected = ref('')
 const products = ref([])
@@ -133,7 +152,7 @@ const { getproductSearch, productSearchRecommendation } = ProductAuth()
 const route = useRoute()
 const router = useRouter()
 const keyword = route.query.query;
-
+const lastPublishTime = ref(0)
 const handleChange = (value) => {
     selected.value = selected.value === value ? '' : value
     getlistlist()
@@ -170,22 +189,30 @@ const getlistlist = async () => {
     }
 }
 const getproductSearchRecommendation = async () => {
+    recommendLoading.value = true
     try {
         const parmes = {
-            lastPublishTime: 0
+            lastPublishTime: lastPublishTime.value
         }
         const res = await productSearchRecommendation(parmes)
-        recommendproducts.value = res.result.list
+        if (res.result.list.length > 0) {
+            recommendproducts.value = res.result.list
+
+            lastPublishTime.value = res.result.list[res.result.list.length - 1]['publishTime']
+        } else {
+            message.warning('No more Products')
+        }
     } catch (error) {
         console.error('Load product list failed:', error)
     } finally {
-        loading.value = false
+        recommendLoading.value = false
     }
 }
+
 getlistlist()
 
 const checkdetail = (id) => {
-    router.push('/productdetail/' + id)
+    router.push('/productinfo?id=' + id)
 }
 </script>
 

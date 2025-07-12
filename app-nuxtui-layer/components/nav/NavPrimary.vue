@@ -46,7 +46,7 @@ const Gotocollection = (collection) => {
 <template>
   <div class="flex flex-wrap gap-3 md:flex-nowrap md:flex-row md:gap-6">
     <NuxtLink v-for="(category, index) in categories" :key="index" :to="category.link"
-      class="text-base md:text-lg hover:text-primary hover:bg-transparent duration-200 p-2 border border-transparent md:border-none !text-base">
+      class="text-base md:text-lg hover:text-primary hover:bg-transparent duration-200 p-2 border border-transparent md:border-none !text-base whitespace-nowrap">
       {{ category.label }}
     </NuxtLink>
     <UPopover color="white" v-model:open="menuOpen" mode="hover" :ui="{
@@ -66,7 +66,7 @@ const Gotocollection = (collection) => {
               <h2 class="text-base font-semibold mb-3 text-title">Special Collections</h2>
               <UList>
                 <UListItem @click="Gotocollection(category.title)" v-for="category in collectionlist" :key="category"
-                  class="text-base block w-full py-2 cursor-pointer hover:bg-[#F8F8F8]  rounded transition text-center md:text-left text-title pl-2">
+                  class="text-base block w-full py-2 cursor-pointer hover:text-primary hover:bg-[#F8F8F8]  rounded transition text-center md:text-left text-title pl-2">
                   {{ category.title }}
                 </UListItem>
               </UList>

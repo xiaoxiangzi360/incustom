@@ -49,10 +49,10 @@
                                                 </UTooltip>
                                             </span>
                                             <span class="mx-2">{{ formatTimestamp(order.createDate) }}</span>
-                                            <span class="text-primary-500 cursor-pointer hover:underline">{{
+                                            <span class="text-primary cursor-pointer hover:underline">{{
                                                 getOrderStatus(order.status) }}</span>
                                             <ULink :to="`/orderinfo?orderNumber=${order.orderNumber}`"
-                                                class="ml-auto text-primary-500 hover:underline">
+                                                class="ml-auto text-primary hover:underline">
                                                 Order Detail
                                             </ULink>
 

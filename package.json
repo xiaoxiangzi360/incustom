@@ -21,19 +21,11 @@
     "format": "prettier --write \"**/*.{html,vue,svelte,astro,js,jsx,cjs,mjs,ts,tsx,cts,mts,css,md,mdx,json}\" !public --ignore-path .gitignore"
   },
   "dependencies": {
-    "@paypal/paypal-js": "^8.2.0",
     "@pinia/nuxt": "^0.5.4",
-    "@unhead/schema-org": "1.10.0",
-    "@unhead/vue": "2.0.12",
     "@vee-validate/nuxt": "^4.13.2",
     "@vueuse/core": "^11.0.3",
-    "ant-design-vue": "^4.2.6",
     "lite-youtube-embed": "^0.3.3",
-    "ohash": "^2.0.11",
-    "pinia": "^2.2.2",
-    "swiper": "^11.2.6",
-    "unhead": "^2.0.12",
-    "vue-turnstile": "^1.0.11"
+    "pinia": "^2.2.2"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.295",
@@ -45,7 +37,7 @@
     "@nuxtjs/critters": "^0.8.0",
     "@nuxtjs/fontaine": "^0.4.4",
     "@nuxtjs/html-validator": "^1.8.2",
-    "@nuxtjs/seo": "^2.0.0-rc.19",
+    "@nuxtjs/seo": "2.0.0-rc.17",
     "@pinegrow/nuxt-module": "^3.0.69",
     "@pinegrow/nuxtui-plugin": "^3.0.40",
     "@pinegrow/tailwindcss-plugin": "^3.0.35",
@@ -65,7 +57,6 @@
     "postcss": "^8.5.0",
     "prettier": "^3.4.2",
     "rehype-external-links": "^3.0.0",
-    "sharp": "^0.33.5",
     "tailwindcss": "^3.4.17",
     "typescript": "^5.7.3"
   },
@@ -77,6 +68,5 @@
   "overrides": {
     "nuxi": "3.8.4"
   },
-  "web-types": "web-types.json",
-  "packageManager": "pnpm@10.6.1+sha512.40ee09af407fa9fbb5fbfb8e1cb40fbb74c0af0c3e10e9224d7b53c7658528615b2c92450e74cfad91e3a2dcafe3ce4050d80bda71d757756d2ce2b66213e9a3"
+  "web-types": "web-types.json"
 }

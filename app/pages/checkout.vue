@@ -1110,7 +1110,7 @@ tbody tr {
 }
 
 .cart-table__action-button {
-    @apply text-primary-500 hover:text-primary-600 transition-colors;
+    @apply text-primary hover:text-primary-600 transition-colors;
 }
 
 .truncate-1-lines {

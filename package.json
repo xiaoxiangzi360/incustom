@@ -21,11 +21,17 @@
     "format": "prettier --write \"**/*.{html,vue,svelte,astro,js,jsx,cjs,mjs,ts,tsx,cts,mts,css,md,mdx,json}\" !public --ignore-path .gitignore"
   },
   "dependencies": {
+    "@paypal/paypal-js": "^8.2.0",
     "@pinia/nuxt": "^0.5.4",
+    "@unhead/vue": "1.11.14",
     "@vee-validate/nuxt": "^4.13.2",
     "@vueuse/core": "^11.0.3",
+    "ant-design-vue": "^4.2.6",
     "lite-youtube-embed": "^0.3.3",
-    "pinia": "^2.2.2"
+    "pinia": "^2.2.2",
+    "swiper": "^11.2.10",
+    "unhead": "1.11.14",
+    "vue-turnstile": "^1.0.11"
   },
   "devDependencies": {
     "@iconify/json": "^2.2.295",
@@ -37,7 +43,7 @@
     "@nuxtjs/critters": "^0.8.0",
     "@nuxtjs/fontaine": "^0.4.4",
     "@nuxtjs/html-validator": "^1.8.2",
-    "@nuxtjs/seo": "^2.0.0-rc.17",
+    "@nuxtjs/seo": "2.0.0-rc.17",
     "@pinegrow/nuxt-module": "^3.0.69",
     "@pinegrow/nuxtui-plugin": "^3.0.40",
     "@pinegrow/tailwindcss-plugin": "^3.0.35",

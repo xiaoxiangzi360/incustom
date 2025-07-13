@@ -83,12 +83,12 @@
                                 <div class="grid grid-cols-3 gap-y-4 gap-x-12 border-t border-t-blackcolor/10 p-6">
                                     <div><span class="text-blackcolor/50 mb-2">Full name</span>
                                         <div class="font-medium mt-1">{{ addressinfo.firstName }}{{ addressinfo.lastName
-                                            }}</div>
+                                        }}</div>
                                     </div>
                                     <div><span class="text-blackcolor/50 mb-2">Number</span>
                                         <div class="font-medium mt-1">({{ addressinfo.numberCode }}) {{
                                             addressinfo.number
-                                            }}
+                                        }}
                                         </div>
                                     </div>
                                     <div v-show="from != 'order'">
@@ -103,7 +103,7 @@
                                 <div class="px-6 pb-6"><span class="text-blackcolor/50 mb-2">Address detail</span>
                                     <div class="font-medium mt-1">{{ addressinfo.countryName }} {{
                                         addressinfo.provinceName
-                                        }} {{ addressinfo.city }} {{ addressinfo.address }}</div>
+                                    }} {{ addressinfo.city }} {{ addressinfo.address }}</div>
                                 </div>
                             </section>
                             <section class="border border-blackcolor/10 rounded-lg bg-white">
@@ -1111,7 +1111,7 @@ tbody tr {
 }
 
 .cart-table__action-button {
-    @apply text-primary hover:text-primary transition-colors;
+    @apply text-primary-500 hover:text-primary-600 transition-colors;
 }
 
 .truncate-1-lines {

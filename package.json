@@ -2,7 +2,7 @@
   "name": "pg-nuxtui",
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://pg-nuxtui.netlify.app",
+  "homepage": "https://incustom",
   "repository": {
     "type": "git",
     "url": "https://github.com/pinegrow/pg-nuxtui.git"
@@ -17,7 +17,7 @@
     "preview": "nuxt preview",
     "generate": "nuxt generate",
     "now": "npm run build && npm run preview",
-    "lighthouse": "npx unlighthouse --no-cache --site https://pg-nuxtui.netlify.app",
+    "lighthouse": "npx unlighthouse --no-cache --site https://incustom",
     "postinstall": "nuxt prepare",
     "analyze": "nuxt analyze",
     "lint": "npm run lint:fix && npm run format",

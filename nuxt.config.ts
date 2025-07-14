@@ -97,6 +97,8 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiBase: process.env.NUXT_PUBLIC_API_BASE || 'https://testapi.incustom.com',
+      paypalClientId: process.env.PAYPAL_CLIENT_ID || '',
+
       // apiBase: process.env.NUXT_PUBLIC_API_BASE || 'http://192.168.8.52:50500',
     }
   },

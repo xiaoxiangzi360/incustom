@@ -8,7 +8,7 @@ export default {
     'Incustom – A one-stop product customization platform to easily create your own unique items.',
   logo: 'incustom.png',
   author: 'Pinegrow',
-  url: 'https://pg-nuxtui.netlify.app',
+  url: 'https://incustom.com',
   github: 'https://github.com/pinegrow/pg-nuxtui',
   ogImageUrl: 'og-image.jpg', // absolute url (or) from public folder
   generator: 'https://vuedesigner.com',

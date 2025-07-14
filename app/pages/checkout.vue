@@ -986,10 +986,10 @@ const payPalCaptureOrder = async (token) => {
 }
 onMounted(async () => {
     getCountrylist()
-
+    const config = useRuntimeConfig()
 
     const paypal = await loadScript({
-        clientId: 'AZEq1Z4PN2jcETI7JFSFvXGwe0dX8xHKlUOKh9N53ysbzHeJ6OonvPHFd1L5XJz90xX1SPP3X6Xp_P__',
+        clientId: config.public.paypalClientId,
         currency: 'USD'
     })
 

@@ -557,8 +557,6 @@ const decrement = () => {
 };
 
 const selectproperty = (index, type) => {
-  console.log(index);
-  console.log('type', type);
   if (type.disabled) {
     return
   }
@@ -645,7 +643,6 @@ const selectproperty = (index, type) => {
 
     if (skuLists.length === 0) return;
     let innersku = skuLists.reduce((acc, list) => acc.filter(sku => list.includes(sku)));
-    console.log(innersku);
 
     let firstsku = innersku[0];
     if (firstsku) {

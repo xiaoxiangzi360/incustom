@@ -45,7 +45,7 @@ export default defineNuxtConfig({
   },
   nitro: {
     // preset: 'netlify',
-    preset: 'node-server',
+    preset: 'vercel',
     devProxy: {
       '/api/': {
         target: 'https://testapi.incustom.com',

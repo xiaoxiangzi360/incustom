@@ -14,7 +14,7 @@ export const cartAuth = () => {
             throw error
         }
     }
-    const creatCart = async (data: any) => {
+    const createCart = async (data: any) => {
         try {
             const response = await $api('/user/userShoppingCart/createUserShoppingCart', {
                 method: 'POST',
@@ -57,5 +57,5 @@ export const cartAuth = () => {
         }
     }
 
-    return { getCart, creatCart, deleteCart, updateCart }
+    return { getCart, createCart, deleteCart, updateCart }
 }

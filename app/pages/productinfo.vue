@@ -420,7 +420,8 @@
             <div class="mt-12 pb-4" v-if="products.length > 0">
                 <h1 class="text-lg font-normal mb-8">Recommended products</h1>
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-12">
-                    <div v-for="(product, index) in products" :key="index" @click="checkdetail(product.id)"
+                    <div v-for="(product, index) in products" :key="index"
+                        @click="checkdetail(product.id, product.erpProduct.productEnglishName)"
                         class="product-card rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer">
                         <div class="relative  overflow-hidden">
                             <img :src="product.erpProduct.mainPic ?? '/images/empty.jpg'"
@@ -516,7 +517,7 @@ const productinfo = ref({
 });
 const relatedList = [];
 const { getProductById, randomRecommendationProductByCatalogId, trialPriceCalculationBySpuV2, erpTryToCreateSku, getmapProductByProductSkuList } = ProductAuth();
-const { creatCart } = cartAuth();
+const { createCart } = cartAuth();
 
 const mainImage = ref('');
 const quantity = ref(1);
@@ -807,7 +808,7 @@ const addtocart = async () => {
             productQuantity: quantity.value,
             productSku: selectsku,
         };
-        let res = await creatCart(data);
+        let res = await createCart(data);
         message.success('Add successful!');
         closecartloding();
         cart.refreshCart();
@@ -975,13 +976,13 @@ if (lastpage) {
 }
 
 const updateBreadcrumbProduct = (productName) => {
-    const productPath = `/productinfo?id=${productid.value}`
+    const productPath = `/product/${productid.value}/${productName}`
 
     // 检查最后一项是否已经是产品详情
     const lastIndex = breadcrumbLinks.value.length - 1
     const lastItem = breadcrumbLinks.value[lastIndex]
 
-    if (lastItem && lastItem.to?.startsWith('/productinfo')) {
+    if (lastItem && lastItem.to?.startsWith('/product')) {
         // ✅ 替换最后一项
         breadcrumbLinks.value[lastIndex] = {
             label: productName,
@@ -1003,7 +1004,6 @@ const handleGetProudct = async () => {
         isLoading.value = true; // 开始加载
         let parmes = { id: productid.value, needPropData: true };
         let res = await getProductById(parmes);
-        // breadcrumbLinks.push({ label: "Product Details", to: "/productinfo?id=" + productid, title: res.result.erpProduct.productEnglishName });
         updateBreadcrumbProduct(res.result.erpProduct.productEnglishName)
 
 
@@ -1129,9 +1129,10 @@ const customFilter = (input, option) => {
 };
 
 
-const checkdetail = (id) => {
-    router.push('/productinfo?id=' + id);
-    // window.location.href = '/productinfo?id=' + id
+const checkdetail = (id, productName) => {
+    // const productPath = `/product/${productid.value}/${productName}`
+
+    router.push(`/product/${id}/${productName}`);
 };
 
 const changeshow = (index) => {
@@ -1312,7 +1313,7 @@ input[type="radio"]:checked:hover {
 
 /* 修改 Select 组件激活时的边框颜色 */
 .ant-select-focused .ant-select-selector {
-    border-color: #00b2e3 !important;
+    border-color: #00c16a !important;
     /* 替换为你想要的颜色 */
     box-shadow: 0 0 0 2px rgba(0, 193, 106, 0.2);
     /* 可选，添加聚焦时的阴影效果 */

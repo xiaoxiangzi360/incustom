@@ -68,6 +68,7 @@ getactivitylistlist()
     <Business />
     <CouponIcon v-model:isshow="isshow" :curactivity="curactivity" />
     <ActivityModal v-model:isshow="isshow" :curactivity="curactivity" />
+    <Cookiemodal />
     <!-- <HeroSection />
     <UContainer class="pt-8">
       <LaunchSale class="mt-8" />

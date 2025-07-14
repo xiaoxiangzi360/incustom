@@ -38,8 +38,8 @@
 
                 <p class="mt-4 text-xs text-white">
                     You can unsubscribe at any time. See our
-                    <a href="https://incustom.com/article/privacy-policy"
-                        class="underline hover:text-blue-300 transition-colors">Privacy Policy</a>.
+                    <a href="/article/privacy-policy" class="underline hover:text-blue-300 transition-colors">Privacy
+                        Policy</a>.
                 </p>
             </div>
         </div>

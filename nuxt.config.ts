@@ -44,7 +44,8 @@ export default defineNuxtConfig({
     fallback: true, // ✅ 自動生成404.html兜底
   },
   nitro: {
-    preset: 'netlify',
+    // preset: 'netlify',
+    preset: 'node-server',
     devProxy: {
       '/api/': {
         target: 'https://testapi.incustom.com',

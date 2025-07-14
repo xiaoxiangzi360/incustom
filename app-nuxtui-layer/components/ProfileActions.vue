@@ -130,9 +130,9 @@ function goShopping() {
   router.push('/')
   menuOpen.value = false
 }
-const checkdetai = (id, sku) => {
+const checkdetai = (id, sku, name) => {
 
-  router.push('/productinfo?id=' + id + '&sku=' + sku)
+  router.push('/product/' + id + '/' + name + '?sku=' + sku)
 }
 const getlocation = async () => {
 
@@ -231,7 +231,7 @@ const checkout = () => {
                   <div class="w-20 rounded-lg overflow-hidden">
                     <img :src="item.product.erpProduct.mainPic" :alt="item.product.erpProduct.productEnglishName"
                       class="w-full h-full object-cover object-top cursor-pointer"
-                      @click="checkdetai(item.product.id, item.productSku)" />
+                      @click="checkdetai(item.product.id, item.productSku, item.product.erpProduct.productEnglishName)" />
                   </div>
 
                   <div class="ml-6 ">
@@ -247,7 +247,7 @@ const checkout = () => {
                       :overlayStyle="{ maxWidth: '300px', whiteSpace: 'pre-line', wordBreak: 'break-word' }">
                       <div class="text-sm text-[#8E8E8E]  truncate-1-lines w-52 mt-1">{{
                         item.product.skuSpec.specAttr
-                      }}</div>
+                        }}</div>
                     </Tooltip>
 
                     <div class="flex items-center mt-2">

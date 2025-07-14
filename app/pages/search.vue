@@ -40,7 +40,8 @@
 
                     <!-- Product List -->
                     <div v-show="products.length > 0 && !loading" class="grid grid-cols-4 gap-6 mb-12">
-                        <div @click="checkdetail(product.id)" v-for="(product, index) in products" :key="index"
+                        <div @click="checkdetail(product.id, product.productEnglishName)"
+                            v-for="(product, index) in products" :key="index"
                             class="bg-white rounded-lg cursor-pointer group">
                             <div class="aspect-square overflow-hidden rounded-t-lg">
                                 <img :src="product.productMainPic ?? '/images/empty.jpg'"
@@ -93,7 +94,8 @@
 
                     <div v-show="recommendproducts.length > 0 && !recommendLoading"
                         class="grid grid-cols-5 gap-4 mb-12 mt-4">
-                        <div @click="checkdetail(product.id)" v-for="(product, index) in recommendproducts" :key="index"
+                        <div @click="checkdetail(product.id, product.productEnglishName)"
+                            v-for="(product, index) in recommendproducts" :key="index"
                             class="bg-white rounded-lg cursor-pointer group">
                             <div class="aspect-square overflow-hidden rounded-t-lg">
                                 <img :src="product.productMainPic ?? '/images/empty.jpg'"
@@ -128,11 +130,16 @@ import { message } from 'ant-design-vue'
 import { ref, watch } from 'vue'
 
 const sortarray = [
+    "Best match",
     'Price Low to High',
     'Price High to Low',
 ]
 
 const sortarraymapping = {
+    'Best match': {
+        value: '',
+        sort: ''
+    },
     'Price Low to High': {
         value: 'customPrice',
         sort: 'asc'
@@ -211,8 +218,10 @@ const getproductSearchRecommendation = async () => {
 
 getlistlist()
 
-const checkdetail = (id) => {
-    router.push('/productinfo?id=' + id)
+const checkdetail = (id, productName) => {
+
+    router.push(`/product/${id}/${productName}`);
+
 }
 </script>
 

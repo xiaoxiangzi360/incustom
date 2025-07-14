@@ -72,7 +72,7 @@
       <div class="flex flex-wrap items-center gap-1">
         <NuxtLink to="/article/privacy-policy">Privacy</NuxtLink>
         <span>|</span>
-        <NuxtLink to="/terms">Terms</NuxtLink>
+        <NuxtLink to="/article/terms-of-service">Terms</NuxtLink>
         <span>|</span>
         <NuxtLink to="/cookies">Cookie Policy</NuxtLink>
         <span>|</span>

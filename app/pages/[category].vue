@@ -117,9 +117,6 @@ const getlistlist = async () => {
 
 getlistlist()
 
-const checkdetail = (id) => {
-  router.push('/productinfo?id=' + id)
-}
 </script>
 <template>
   <div class="bg-white">
@@ -189,8 +186,8 @@ const checkdetail = (id) => {
 
           <!-- Product List -->
           <div v-show="products.length > 0 && !loading" class="grid grid-cols-4 gap-6 mb-12">
-            <NuxtLink :to="`/productinfo?id=${product.id}`" v-for="(product, index) in products" :key="index"
-              class="bg-white rounded-lg cursor-pointer group">
+            <NuxtLink :to="`/product/${product.id}/${product.erpProduct.productEnglishName}`"
+              v-for="(product, index) in products" :key="index" class="bg-white rounded-lg cursor-pointer group">
               <div class="aspect-square overflow-hidden rounded-t-lg">
                 <img :src="product.erpProduct.mainPic ?? '/images/empty.jpg'"
                   :alt="product.erpProduct.productEnglishName"

@@ -49,7 +49,7 @@
                 }" :autoplay="{ delay: 5000, disableOnInteraction: false }" :loop="true"
                     :pagination="{ clickable: true }" :speed="1000" class="product-swiper">
                     <SwiperSlide v-for="(product, index) in products" :key="index">
-                        <ULink :to="`/productinfo?id=${product.id}`"
+                        <ULink :to="`/product/${product.id}/${product.erpProduct.productEnglishName}`"
                             class="rounded-lg overflow-hidden shadow-md bg-white transition-transform duration-300 hover:scale-[1.05] hover:-translate-y-1 hover:shadow-xl cursor-pointer">
                             <!-- 产品图片 -->
                             <div class="relative w-full aspect-square overflow-hidden">
@@ -94,10 +94,6 @@ const swiperModules = [Pagination, Autoplay];
 const selectedColors = ref<Record<number, string>>({});
 const products = ref([]);
 const isLoading = ref(true); // 添加加载状态
-
-const checkdetail = (id) => {
-    router.push('/productinfo?id=' + id)
-}
 
 const getpopularlist = async () => {
     try {

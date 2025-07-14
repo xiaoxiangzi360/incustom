@@ -42,17 +42,17 @@ const items = ref([
     {
         title: 'Privacy & Garden Decor',
         description: 'Stylish privacy for your backyard. >',
-        image: '/images/cate2.png'
+        image: '/images/1.webp'
     },
     {
         title: 'Indoor Window Shades',
         description: 'Elegant shading for modern homes. >',
-        image: '/images/cate3.png'
+        image: '/images/2.webp'
     },
     {
         title: 'Custom Printed Shade & Screen',
         description: 'Print your ideas on fabric. >',
-        image: '/images/cate4.png'
+        image: '/images/3.webp'
     },
 ]);
 const checklist = (title) => {

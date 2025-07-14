@@ -37,7 +37,7 @@
                                             <div class="flex items-center gap-4 ">
                                                 <div class="w-24 h-24 overflow-hidden rounded-lg">
                                                     <img :src="item.product.erpProduct.mainPic"
-                                                        @click="checkdetai(item.product.id, item.productSku)"
+                                                        @click="checkdetai(item.product.id, item.productSku, item.product.erpProduct.productEnglishName)"
                                                         alt="Product image"
                                                         class="w-24 h-24 object-cover cursor-pointer">
                                                 </div>
@@ -281,9 +281,9 @@ const checkout = () => {
 const updateSelection = () => {
     selectAll.value = cart.itemList.every(item => item.selected);
 };
-const checkdetai = (id, sku) => {
+const checkdetai = (id, sku, name) => {
 
-    router.push('/productinfo?id=' + id + '&sku=' + sku)
+    router.push('/product/' + id + '/' + name + '?sku=' + sku)
 }
 const deleteItem = async (item) => {
     const index = cart.itemList.indexOf(item);

@@ -392,7 +392,8 @@
       <div class="mt-12 pb-4" v-if="products.length > 0">
         <h1 class="text-lg font-normal mb-8">Recommended products</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-12">
-          <div v-for="(product, index) in products" :key="index" @click="checkdetail(product.id)"
+          <div v-for="(product, index) in products" :key="index"
+            @click="checkdetail(product.id, product.erpProduct.productEnglishName)"
             class="product-card rounded-lg transition-transform duration-300 ease-in-out hover:scale-105 cursor-pointer">
             <div class="relative  overflow-hidden">
               <img :src="product.erpProduct.mainPic ?? '/images/empty.jpg'" :alt="product.erpProduct.productEnglishName"
@@ -445,25 +446,32 @@ import { ref, onMounted, onUnmounted, computed, watch } from 'vue';
 import { message, Tooltip, Select } from 'ant-design-vue';
 import { useCartStore } from '@/stores/cart';
 import { useRouter, useRoute } from 'vue-router';
-
+const { getProductById, randomRecommendationProductByCatalogId, trialPriceCalculationBySpuV2, erpTryToCreateSku, getmapProductByProductSkuList } = ProductAuth();
+const { createCart } = cartAuth();
 const route = useRoute();
 const router = useRouter();
 const lastpage = router.options.history.state.back;
 const cart = useCartStore();
 
 // 新增loading状态
-const isLoading = ref(true);
+const isLoading = computed(() => pending.value);
+
 
 // Swiper instance
 const swiperInstance = ref(null);
 
 // 其他现有refs
-const skuprice = ref(0);
 const cartloding = ref(false);
 const orderloding = ref(false);
 const orginproductinfo = ref({});
 
 const productid = computed(() => route.params.id[0] ?? '1912447337201045504');
+const { data: serverProductData, pending, error } = await useAsyncData('product-detail', () => {
+  return getProductById({
+    id: productid.value,
+    needPropData: true,
+  });
+});
 
 const showDimensions = ref(true);
 const mainImageIndex = ref(0);
@@ -475,20 +483,22 @@ const isSwiperAtEnd = computed(() => mainImageIndex.value === productinfo.value.
 let specList = [];
 let joinsku = [];
 const designimage = ref('');
-const productinfo = ref({
-  erpProduct: {
-    customPrice: 0,
-    photoList: [],
-    propertyList: [],
-    catalogId: 0,
-    mainPic: ''
-  },
-  printPropertyList: [],
-  normalPropertyList: []
-});
+// const productinfo = ref({
+//   erpProduct: {
+//     customPrice: 0,
+//     photoList: [],
+//     propertyList: [],
+//     catalogId: 0,
+//     mainPic: ''
+//   },
+//   printPropertyList: [],
+//   normalPropertyList: []
+// });
+const productinfo = ref(serverProductData.value?.result ?? {});
+const skuprice = ref(productinfo.value?.erpProduct.customPrice ?? {});
+
 const relatedList = [];
-const { getProductById, randomRecommendationProductByCatalogId, trialPriceCalculationBySpuV2, erpTryToCreateSku, getmapProductByProductSkuList } = ProductAuth();
-const { creatCart } = cartAuth();
+
 
 const mainImage = ref('');
 const quantity = ref(1);
@@ -779,7 +789,7 @@ const addtocart = async () => {
       productQuantity: quantity.value,
       productSku: selectsku,
     };
-    let res = await creatCart(data);
+    let res = await createCart(data);
     message.success('Add successful!');
     closecartloding();
     cart.refreshCart();
@@ -947,13 +957,13 @@ if (lastpage) {
 }
 
 const updateBreadcrumbProduct = (productName) => {
-  const productPath = `/productinfo?id=${productid.value}`
+  const productPath = `/product/${productid.value}/${productName}`
 
   // 检查最后一项是否已经是产品详情
   const lastIndex = breadcrumbLinks.value.length - 1
   const lastItem = breadcrumbLinks.value[lastIndex]
 
-  if (lastItem && lastItem.to?.startsWith('/productinfo')) {
+  if (lastItem && lastItem.to?.startsWith('/product')) {
     // ✅ 替换最后一项
     breadcrumbLinks.value[lastIndex] = {
       label: productName,
@@ -975,7 +985,6 @@ const handleGetProudct = async () => {
     isLoading.value = true; // 开始加载
     let parmes = { id: productid.value, needPropData: true };
     let res = await getProductById(parmes);
-    // breadcrumbLinks.push({ label: "Product Details", to: "/productinfo?id=" + productid, title: res.result.erpProduct.productEnglishName });
     updateBreadcrumbProduct(res.result.erpProduct.productEnglishName)
 
 
@@ -1102,9 +1111,8 @@ const customFilter = (input, option) => {
 };
 
 
-const checkdetail = (id) => {
-  router.push('/productinfo?id=' + id);
-  // window.location.href = '/productinfo?id=' + id
+const checkdetail = (id, name) => {
+  router.push(`/product/${id}/${name}`);
 };
 
 const changeshow = (index) => {
@@ -1131,18 +1139,23 @@ const handleScroll = () => {
 };
 
 onMounted(() => {
-  window.addEventListener('scroll', handleScroll);
-  handleGetProudct().then(() => {
-    if (swiperInstance.value && productinfo.value.erpProduct.photoList.length > 0) {
-      const initialIndex = productinfo.value.erpProduct.photoList.findIndex(
-        (item) => item.url === mainImage.value
-      );
-      if (initialIndex !== -1) {
-        swiperInstance.value.slideTo(initialIndex);
-      }
-      mainImageIndex.value = initialIndex !== -1 ? initialIndex : 0;
-    }
-  });
+  // window.addEventListener('scroll', handleScroll);
+  // handleGetProudct().then(() => {
+  //   if (swiperInstance.value && productinfo.value.erpProduct.photoList.length > 0) {
+  //     const initialIndex = productinfo.value.erpProduct.photoList.findIndex(
+  //       (item) => item.url === mainImage.value
+  //     );
+  //     if (initialIndex !== -1) {
+  //       swiperInstance.value.slideTo(initialIndex);
+  //     }
+  //     mainImageIndex.value = initialIndex !== -1 ? initialIndex : 0;
+  //   }
+  // });
+  if (productinfo.value.erpProduct?.mainPic) {
+    mainImage.value = productinfo.value.erpProduct.mainPic;
+  }
+
+  handleGetrelated();
 });
 
 watch(() => route.query, () => {
@@ -1285,7 +1298,7 @@ input[type="radio"]:checked:hover {
 
 /* 修改 Select 组件激活时的边框颜色 */
 .ant-select-focused .ant-select-selector {
-  border-color: #00b2e3 !important;
+  border-color: #00c16a !important;
   /* 替换为你想要的颜色 */
   box-shadow: 0 0 0 2px rgba(0, 193, 106, 0.2);
   /* 可选，添加聚焦时的阴影效果 */
